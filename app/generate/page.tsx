@@ -8,6 +8,7 @@ import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import axios from "axios";
+import cohere from "cohere-ai";
 import { MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -42,7 +43,7 @@ const GeneratePage: React.FC = () => {
   });
 
   const isLoading = form.formState.isSubmitting;
-  console.log(process.env.COHERE_API_KEY, "authorization") 
+
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
       const options = {
@@ -51,12 +52,10 @@ const GeneratePage: React.FC = () => {
         headers: {
           accept: "application/json",
           "content-type": "application/json",
-          authorization: process.env.COHERE_API_KEY,
-        //   authorization: "Bearer 60yNtHt2Xm0VDN3thaPul731hq0O17MI2y5PIEtR",
+          authorization: process.env.NEXT_PUBLIC_COHERE_API_KEY,
         },
         data: { prompt: values.prompt, num_generations: 1, max_tokens: 1000 },
-        
-    };
+      };
 
       const response = await axios.request<CohereApiResponse>(options);
       setMessages((current) => [...current, response.data]);
@@ -91,7 +90,7 @@ const GeneratePage: React.FC = () => {
                     <FormItem className="col-span-12 lg:col-span-10">
                       <FormControl className="p-0 m-0">
                         <Input
-                          className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-slate-900 text-white pl-3"
+                          className="pl-3 text-white border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-slate-900"
                           disabled={isLoading}
                           placeholder="Enter a prompt to generate answer?"
                           {...field}
@@ -101,7 +100,7 @@ const GeneratePage: React.FC = () => {
                   )}
                 />
                 <Button
-                  className="w-full col-span-12 lg:col-span-2 p-5"
+                  className="w-full col-span-12 p-5 lg:col-span-2"
                   type="submit"
                   disabled={isLoading}
                   size="icon"
