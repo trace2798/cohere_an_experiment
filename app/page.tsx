@@ -1,5 +1,7 @@
 import CardContent from "@/components/CardContent";
 import Spotlight, { SpotlightCard } from "@/components/spotlight";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,6 +12,9 @@ export default function Home() {
       <h2 className="text-3xl text-slate-500 mt-5">
         Trying to implement all the api endpoints offered by Cohere with Next.Js
       </h2>
+      <Link href="/explore">
+        <Button className="mt-5">Explore</Button>
+      </Link>
     </main>
   );
 }
