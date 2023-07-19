@@ -1,11 +1,11 @@
 "use client";
-
 import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import { Empty } from "@/components/ui/empty";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { MessageSquare } from "lucide-react";
@@ -13,53 +13,49 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
+// Define types for data and API response
 type PromptFormValues = {
-  prompt: string;
-};
-
-type Generation = {
-  id: string;
   text: string;
-  index: number;
-  likelihood: number;
 };
 
 type CohereApiResponse = {
-  prompt: string;
-  generations: Generation[];
-  // Define the response structure based on Cohere's API response
-  // Adjust the types according to the actual response structure from the API
-  // For example: data: string or data: { message: string }
+  id: string;
+  summary: string;
+  meta: {
+    api_version: {
+      version: string;
+    };
+  };
 };
 
-const GeneratePage: React.FC = () => {
-  const [messages, setMessages] = useState<CohereApiResponse[]>([]);
+const SummarizePage: React.FC = () => {
+  const [summaries, setSummaries] = useState<CohereApiResponse[]>([]);
 
   const form = useForm<PromptFormValues>({
     defaultValues: {
-      prompt: "",
+      text: "",
     },
   });
 
   const isLoading = form.formState.isSubmitting;
-  console.log(process.env.COHERE_API_KEY, "authorization") 
+
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
       const options = {
         method: "POST",
-        url: "https://api.cohere.ai/v1/generate",
+        url: "https://api.cohere.ai/v1/summarize",
         headers: {
           accept: "application/json",
           "content-type": "application/json",
-          authorization: process.env.COHERE_API_KEY,
-        //   authorization: "Bearer 60yNtHt2Xm0VDN3thaPul731hq0O17MI2y5PIEtR",
+          authorization: "Bearer 60yNtHt2Xm0VDN3thaPul731hq0O17MI2y5PIEtR",
         },
-        data: { prompt: values.prompt, num_generations: 1, max_tokens: 1000 },
-        
-    };
+        data: {
+          text: values.text,
+        },
+      };
 
       const response = await axios.request<CohereApiResponse>(options);
-      setMessages((current) => [...current, response.data]);
+      setSummaries((current) => [...current, response.data]);
 
       form.reset();
     } catch (error) {
@@ -72,8 +68,8 @@ const GeneratePage: React.FC = () => {
     <div className="p-10 rounded-lg">
       <div className="flex">
         <Heading
-          title="Generate"
-          description="Generate using cohere."
+          title="Summarize"
+          description="Summarize using cohere."
           icon={MessageSquare}
           iconColor="text-violet-500"
           bgColor="bg-violet-500/10"
@@ -86,14 +82,14 @@ const GeneratePage: React.FC = () => {
                 className="grid w-full grid-cols-12 gap-2 p-4 px-3 border rounded-lg md:px-6 focus-within:shadow-sm"
               >
                 <FormField
-                  name="prompt"
+                  name="text"
                   render={({ field }) => (
                     <FormItem className="col-span-12 lg:col-span-10">
                       <FormControl className="p-0 m-0">
-                        <Input
+                        <Textarea
                           className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-slate-900 text-white pl-3"
                           disabled={isLoading}
-                          placeholder="Enter a prompt to generate answer?"
+                          placeholder="Enter text to summarize"
                           {...field}
                         />
                       </FormControl>
@@ -106,7 +102,7 @@ const GeneratePage: React.FC = () => {
                   disabled={isLoading}
                   size="icon"
                 >
-                  Generate
+                  Summarize
                 </Button>
               </form>
             </Form>
@@ -117,25 +113,19 @@ const GeneratePage: React.FC = () => {
                 <Loader />
               </div>
             )}
-            {messages.length === 0 && !isLoading && (
-              <Empty label="No conversation started." />
+            {summaries.length === 0 && !isLoading && (
+              <Empty label="No summaries available." />
             )}
             <div className="flex flex-col-reverse gap-y-4">
-              {messages.map((message) => (
+              {summaries.map((summary) => (
                 <div
-                  key={message.prompt}
+                  key={summary.id}
                   className={cn(
                     "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                    message.prompt === "user"
-                      ? "bg-slate-700 border border-black/10"
-                      : "bg-muted"
+                    "bg-neutral-200 border border-black/10"
                   )}
                 >
-                  {message.generations.map((generation) => (
-                    <p key={generation.id} className="text-sm">
-                      {generation.text}
-                    </p>
-                  ))}
+                  <p className="text-sm">{summary.summary}</p>
                 </div>
               ))}
             </div>
@@ -146,4 +136,4 @@ const GeneratePage: React.FC = () => {
   );
 };
 
-export default GeneratePage;
+export default SummarizePage;
