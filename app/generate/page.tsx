@@ -44,29 +44,39 @@ const GeneratePage: React.FC = () => {
 
   const isLoading = form.formState.isSubmitting;
 
+  // const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
+  //   try {
+  //     const options = {
+  //       method: "POST",
+  //       url: "https://api.cohere.ai/v1/generate",
+  //       headers: {
+  //         accept: "application/json",
+  //         "content-type": "application/json",
+  //         authorization: process.env.NEXT_PUBLIC_COHERE_API_KEY,
+  //       },
+  //       data: { prompt: values.prompt, num_generations: 1, max_tokens: 1000 },
+  //     };
+  //     console.log(process.env.NEXT_PUBLIC_COHERE_API_KEY);
+  //     const response = await axios.request<CohereApiResponse>(options);
+  //     setMessages((current) => [...current, response.data]);
+
+  //     form.reset();
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Something went wrong.");
+  //   }
+  // };
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      const options = {
-        method: "POST",
-        url: "https://api.cohere.ai/v1/generate",
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json",
-          authorization: process.env.NEXT_PUBLIC_COHERE_API_KEY,
-        },
-        data: { prompt: values.prompt, num_generations: 1, max_tokens: 1000 },
-      };
-
-      const response = await axios.request<CohereApiResponse>(options);
+      console.log(values, "VALUES VALUES")
+      const response = await axios.post('/api/generate', values); // Call the server-side API route
       setMessages((current) => [...current, response.data]);
-
       form.reset();
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong.");
+      toast.error('Something went wrong.');
     }
   };
-
   return (
     <div className="p-10 rounded-lg">
       <div className="flex">
@@ -130,7 +140,7 @@ const GeneratePage: React.FC = () => {
                       : "bg-muted"
                   )}
                 >
-                  {message.generations.map((generation) => (
+                  {message.generations?.map((generation) => (
                     <p key={generation.id} className="text-sm">
                       {generation.text}
                     </p>

@@ -1,51 +1,68 @@
-// import { NextResponse } from "next/server";
-// import { Configuration, OpenAIApi } from "openai";
+import axios from "axios";
+import { NextResponse } from "next/server";
 
-// import { checkSubscription } from "@/lib/subscription";
-// import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
+export async function POST(req: Request) {
+  console.log("API");
+  try {
+    console.log(req.body, "BODY BODY BODY");
+    const body = await req.json();
+    const { prompt }  = body; // Assuming the prompt is sent from the client
+    const cohereApiUrl = "https://api.cohere.ai/v1/generate";
+    const cohereApiKey = process.env.NEXT_PUBLIC_COHERE_API_KEY; // Use your environment variable here
 
-// const cohere = require("cohere-ai");
-// const configuration = cohere.init("YOUR_API_KEY");
+    const options = {
+      method: "POST",
+      url: cohereApiUrl,
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        authorization: cohereApiKey,
+      },
+      data: { prompt, num_generations: 1, max_tokens: 1000 },
+    };
+    console.log(options);
+    const response = await axios.request(options);
+    const responseData = response.data;
+    return NextResponse.json(responseData);
+  } catch (error) {
+    console.log("[CONVERSATION_ERROR]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
 
-// export async function POST(
-//   req: Request
-// ) {
+// // Server-side code (Node.js + Express)
+// const express = require("express");
+// const axios = require("axios");
+// const app = express();
+// const port = 3000; // Your desired port
+
+// // Define the API route
+// app.post("/api/generate", async (req, res) => {
 //   try {
-//     const { userId } = auth();
-//     const body = await req.json();
-//     const { messages  } = body;
+//     const { prompt } = req.body; // Assuming the prompt is sent from the client
+//     const cohereApiUrl = "https://api.cohere.ai/v1/generate";
+//     const cohereApiKey = process.env.COHERE_API_KEY; // Use your environment variable here
 
-//     if (!userId) {
-//       return new NextResponse("Unauthorized", { status: 401 });
-//     }
+//     const options = {
+//       method: "POST",
+//       url: cohereApiUrl,
+//       headers: {
+//         accept: "application/json",
+//         "content-type": "application/json",
+//         authorization: cohereApiKey,
+//       },
+//       data: { prompt, num_generations: 1, max_tokens: 1000 },
+//     };
 
-//     if (!configuration.apiKey) {
-//       return new NextResponse("OpenAI API Key not configured.", { status: 500 });
-//     }
-
-//     if (!messages) {
-//       return new NextResponse("Messages are required", { status: 400 });
-//     }
-
-//     const freeTrial = await checkApiLimit();
-//     const isPro = await checkSubscription();
-
-//     if (!freeTrial && !isPro) {
-//       return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
-//     }
-
-//     const response = await openai.createChatCompletion({
-//       model: "gpt-3.5-turbo",
-//       messages
-//     });
-
-//     if (!isPro) {
-//       await incrementApiLimit();
-//     }
-
-//     return NextResponse.json(response.data.choices[0].message);
+//     const response = await axios.request(options);
+//     res.json(response.data);
 //   } catch (error) {
-//     console.log('[CONVERSATION_ERROR]', error);
-//     return new NextResponse("Internal Error", { status: 500 });
+//     console.error(error);
+//     res.status(500).json({ error: "Something went wrong" });
 //   }
-// };
+// });
+
+// // Start the server
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
