@@ -50,21 +50,19 @@ const cardContentData = [
 const ExplorePage: FC<ExplorePageProps> = ({}) => {
   return (
     <>
-      <main className="flex flex-col justify-center items-center text-center min-h-screen bg-slate-800 p-24">
-        <h2 className="text-3xl text-neutral-200 mb-10 font-bold">
-          Available API Endpoints
-        </h2>
-        <Spotlight className="max-w-sm mx-auto grid gap-6 lg:grid-cols-3 items-start lg:max-w-none group">
-          {cardContentData.map((content, index) => (
-            <SpotlightCard key={index}>
-              <CardContent
-                title={content.title}
-                description={content.description}
-              />
-            </SpotlightCard>
-          ))}
-        </Spotlight>
-      </main>
+      <h2 className="text-3xl text-neutral-200 mb-10 font-bold">
+        Available API Endpoints
+      </h2>
+      <Spotlight className="max-w-sm mx-auto grid gap-6 lg:grid-cols-3 items-start lg:max-w-none group">
+        {cardContentData.map((content, index) => (
+          <SpotlightCard key={index}>
+            <CardContent
+              title={content.title}
+              description={content.description}
+            />
+          </SpotlightCard>
+        ))}
+      </Spotlight>
     </>
   );
 };
