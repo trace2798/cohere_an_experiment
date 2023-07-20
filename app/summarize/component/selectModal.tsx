@@ -1,3 +1,4 @@
+import { HoverContentComponent } from "@/components/HoverContentCompoent";
 import {
   HoverCard,
   HoverCardContent,
@@ -50,10 +51,13 @@ export function SelectModel({ setValue }: SelectModelProps) {
               className="w-[260px] text-sm"
               side="left"
             >
-              Type: string The ID of the model to generate the summary with.
-              Currently available models are summarize-medium and
-              summarize-xlarge (default). Smaller models are faster, while
-              larger models will perform better Default: summarize-xlarge
+              <HoverContentComponent
+                type="string"
+                defaultValue="summarize-xlarge"
+                options={["summarize-xlarge", "summarize-medium"]}
+                functionality="The ID of the model to generate the summary with."
+                note="Smaller models are faster, while larger models will perform better."
+              />
             </HoverCardContent>
           </HoverCard>
         </div>

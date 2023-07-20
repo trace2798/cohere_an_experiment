@@ -45,7 +45,7 @@ export function TemperatureSlider({ setValue }: TemperatureSliderProps) {
               typically between 0 and 1.
             </HoverCardContent>
           </HoverCard>
-          <p>Current Temperature: {selectedTemperature}</p>
+          <p className="text-neutral-400">{selectedTemperature}</p>
         </div>
         <div>
           <Slider

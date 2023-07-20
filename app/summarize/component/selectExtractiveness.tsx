@@ -16,6 +16,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@radix-ui/react-hover-card";
+import { HoverContentComponent } from "@/components/HoverContentCompoent";
 type PromptFormValues = {
   text: string;
   length: string;
@@ -50,16 +51,13 @@ export function SelectExtractiveness({ setValue }: SelectModelProps) {
               className="w-[260px] text-sm"
               side="left"
             >
-              <div>
-                <p>Type:</p>
-                <p>What it does:</p>
-              </div>
-              One of low, medium, high, or auto, defaults to auto. Controls how
-              close to the original text the summary is. high extractiveness
-              summaries will lean towards reusing sentences verbatim, while low
-              extractiveness summaries will tend to paraphrase more. If auto is
-              selected, the best option will be picked based on the input text.
-              Default: low
+              <HoverContentComponent
+                type="string"
+                defaultValue="auto"
+                options={["low", "medium", "high", "auto"]}
+                functionality="Controls how close to the original text the summary is. high extractiveness summaries will lean towards reusing sentences verbatim, while low extractiveness summaries will tend to paraphrase more."
+                note="If auto is selected, the best option will be picked based on the input text."
+              />
             </HoverCardContent>
           </HoverCard>
         </div>
