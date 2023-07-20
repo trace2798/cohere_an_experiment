@@ -2,6 +2,8 @@ import { ToastProvider } from "@/components/ui/toast";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="flex flex-col justify-center items-center text-center min-h-screen bg-slate-950 px-[5vw]">
-          {children}
-        </main>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ModeToggle/>
+          <main className="flex flex-col justify-center items-center text-center min-h-screen px-[5vw]">
+            {children}
+          </main>
+        </ThemeProvider>
         <ToastProvider />
       </body>
     </html>

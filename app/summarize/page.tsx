@@ -62,7 +62,7 @@ const SummarizePage: React.FC = () => {
   };
 
   return (
-    <div className="p-10 rounded-lg bg-neutral-200">
+    <div className="p-10 rounded-lg">
       <div className="flex">
         <div className="w-1/3">
           <Heading title="Summarize" description="Summarize using cohere." />
@@ -80,7 +80,7 @@ const SummarizePage: React.FC = () => {
                     <FormItem className="col-span-12 lg:col-span-10">
                       <FormControl className="p-0 m-0">
                         <Textarea
-                          className="pl-3 text-white border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-slate-900"
+                          className="pl-3 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                           disabled={isLoading}
                           placeholder="Enter text to summarize"
                           {...field}
@@ -102,7 +102,7 @@ const SummarizePage: React.FC = () => {
               <div className="flex flex-wrap justify-between w-full">
                 <Heading
                   title="Available option"
-                  description="All set the default. Change to Playaround"
+                  description="All set to default. Change to Playaround"
                 />
                 <SelectLength setValue={form.setValue} />
                 <SelectFormat setValue={form.setValue} />
@@ -122,13 +122,12 @@ const SummarizePage: React.FC = () => {
               <Empty label="No summaries available." />
             )}
             <div className="flex flex-col-reverse gap-y-4">
-              <p className="text-sm">Input:</p>
               {summaries.map((summary) => (
                 <div
                   key={summary.id}
                   className={cn(
                     "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                    "bg-neutral-200 border border-black/10"
+                    "dark:bg-zinc-900 border border-black/10"
                   )}
                 >
                   <p className="text-base">{summary.summary}</p>
