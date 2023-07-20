@@ -22,6 +22,7 @@ import { SelectExtractiveness } from "./component/selectExtractiveness";
 import { SelectFormat } from "./component/selectFormat";
 import { SelectModel } from "./component/selectModal";
 import { TemperatureSlider } from "./component/temperatureSlider";
+import { useToast } from "@/components/ui/use-toast";
 
 // Define types for data and API response
 type PromptFormValues = {
@@ -44,6 +45,7 @@ type CohereApiResponse = {
 };
 
 const SummarizePage: React.FC = () => {
+  const { toast } = useToast();
   const [summaries, setSummaries] = useState<CohereApiResponse[]>([]);
 
   const form = useForm<PromptFormValues>({
@@ -63,6 +65,12 @@ const SummarizePage: React.FC = () => {
       const requestData = { ...values };
       const response = await axios.post("/api/summarize", requestData);
       setSummaries((current) => [...current, response.data]);
+      toast({
+        title: "Success!",
+        description: "Snippet added successfully",
+        duration: 5000,
+        variant: "default",
+      });
       form.setValue("text", "");
     } catch (error) {
       console.error(error);
@@ -124,7 +132,7 @@ const SummarizePage: React.FC = () => {
               />
               <Heading
                 title="Available option"
-                description="All set to default. Change to Playaround"
+                description="All set to default. Change to experiment."
               />
               {/* <div className="flex flex-col flex-wrap justify-between w-full col-span-12 lg:col-span-2">
                 <SelectLength setValue={form.setValue} />

@@ -1,9 +1,9 @@
-import { ToastProvider } from "@/components/ui/toast";
-import "./globals.css";
+import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "@/components/mode-toggle";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,13 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          
           <main className="flex flex-col justify-center items-center text-center min-h-screen px-[5vw]">
-          <ModeToggle/>
+            <ModeToggle />
             {children}
           </main>
+          <Toaster />
         </ThemeProvider>
-        <ToastProvider />
       </body>
     </html>
   );
