@@ -90,11 +90,15 @@ const SummarizePage: React.FC = () => {
                 >
                   Summarize
                 </Button>
-                <SelectLength setValue={form.setValue} />
-                <div className="ml-48">
-                  <SelectFormat setValue={form.setValue} />
-                </div>
               </form>
+              <div className="flex flex-wrap justify-between w-full">
+                <Heading
+                  title="Available option"
+                  description="All set the default. Change to Playaround"
+                />
+                <SelectLength setValue={form.setValue} />
+                <SelectFormat setValue={form.setValue} />
+              </div>
             </Form>
           </div>
           <div className="mt-4 space-y-4">

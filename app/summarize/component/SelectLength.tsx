@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select";
 
 import { UseFormSetValue, useFormContext } from "react-hook-form";
+import { Label } from "@/components/ui/label";
 type PromptFormValues = {
   text: string;
   length: string;
@@ -35,7 +36,8 @@ export function SelectLength({ setValue }: SelectLengthProps) {
   const [selectedLength, setSelectedLength] = useState("medium");
 
   return (
-    <Select value={selectedLength} onValueChange={handleLengthChange}>
+    <>
+    <Select value={selectedLength} onValueChange={handleLengthChange}>   
       <SelectTrigger className="w-[180px]">
         <SelectValue>{selectedLength}</SelectValue>
       </SelectTrigger>
@@ -50,5 +52,6 @@ export function SelectLength({ setValue }: SelectLengthProps) {
         </SelectGroup>
       </SelectContent>
     </Select>
+    </>
   );
 }

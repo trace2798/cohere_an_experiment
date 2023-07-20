@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select";
 
 import { UseFormSetValue } from "react-hook-form";
+import { Label } from "@radix-ui/react-label";
 type PromptFormValues = {
   text: string;
   length: string;
@@ -29,20 +30,22 @@ export function SelectFormat({ setValue }: SelectFormatProps) {
   const [selectedFormat, setSelectedFormat] = useState("paragraph");
 
   return (
-    <Select value={selectedFormat} onValueChange={handleFormatChange}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue>{selectedFormat}</SelectValue>
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Summary Format</SelectLabel>
-          {["paragraph", "bullets", "auto"].map((format) => (
-            <SelectItem key={format} value={format}>
-              {format}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <>
+      <Select value={selectedFormat} onValueChange={handleFormatChange}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue>{selectedFormat}</SelectValue>
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Summary Format</SelectLabel>
+            {["paragraph", "bullets", "auto"].map((format) => (
+              <SelectItem key={format} value={format}>
+                {format}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </>
   );
 }
