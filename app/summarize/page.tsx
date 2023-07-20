@@ -11,12 +11,14 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { SelectLength } from "./component/SelectLength";
 import { SelectFormat } from "./component/selectFormat";
+import { SelectModel } from "./component/selectModal";
 
 // Define types for data and API response
 type PromptFormValues = {
   text: string;
   length: string;
   format: string;
+  model: string;
 };
 
 type CohereApiResponse = {
@@ -37,6 +39,7 @@ const SummarizePage: React.FC = () => {
       text: "",
       length: "medium",
       format: "paragraph",
+      model: "summarize-xlarge",
     },
   });
 
@@ -98,6 +101,7 @@ const SummarizePage: React.FC = () => {
                 />
                 <SelectLength setValue={form.setValue} />
                 <SelectFormat setValue={form.setValue} />
+                <SelectModel setValue={form.setValue} />
               </div>
             </Form>
           </div>

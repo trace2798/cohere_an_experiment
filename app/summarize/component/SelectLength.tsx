@@ -15,6 +15,7 @@ type PromptFormValues = {
   text: string;
   length: string;
   format: string;
+  model: string;
 };
 
 interface SelectLengthProps {

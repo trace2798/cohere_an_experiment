@@ -22,6 +22,7 @@ export async function POST(req: Request) {
         text: values.text,
         length: values.length,
         format: values.format, // Use 'json' as the format option for JSON response
+     model: values.model,
       },
     };
     console.log(options);
