@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { Slider } from "@/components/ui/slider";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import { HoverCardContent } from "@radix-ui/react-hover-card";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "@/components/ui/hover-card";
+
 import { Label } from "@/components/ui/label";
+import { HoverContentComponent } from "@/components/HoverContentCompoent";
 
 type PromptFormValues = {
   text: string;
@@ -39,10 +44,13 @@ export function TemperatureSlider({ setValue }: TemperatureSliderProps) {
               className="w-[260px] text-sm"
               side="left"
             >
-              Ranges from 0 to 5. Controls the randomness of the output. Lower
-              values tend to generate more “predictable” output, while higher
-              values tend to generate more “creative” output. The sweet spot is
-              typically between 0 and 1.
+              <HoverContentComponent
+                type="number"
+                defaultValue="Recommended between between 0 and 1"
+                options={["1-5"]}
+                functionality="Controls the randomness of the output."
+                note=" Lower values tend to generate more “predictable” output, while higher values tend to generate more “creative” output."
+              />
             </HoverCardContent>
           </HoverCard>
           <p className="text-neutral-400">{selectedTemperature}</p>

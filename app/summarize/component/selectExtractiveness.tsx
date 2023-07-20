@@ -11,12 +11,9 @@ import {
 
 import { UseFormSetValue } from "react-hook-form";
 import { Label } from "@radix-ui/react-label";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@radix-ui/react-hover-card";
+
 import { HoverContentComponent } from "@/components/HoverContentCompoent";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 type PromptFormValues = {
   text: string;
   length: string;
@@ -44,7 +41,7 @@ export function SelectExtractiveness({ setValue }: SelectModelProps) {
         <div className="flex items-center justify-center w-full">
           <HoverCard openDelay={100}>
             <HoverCardTrigger asChild>
-              <Label htmlFor="temperature">Extractiveness</Label>
+              <Label htmlFor="extractiveness">Extractiveness</Label>
             </HoverCardTrigger>
             <HoverCardContent
               align="start"
