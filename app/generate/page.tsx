@@ -8,7 +8,6 @@ import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import axios from "axios";
-import cohere from "cohere-ai";
 import { MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -28,9 +27,6 @@ type Generation = {
 type CohereApiResponse = {
   prompt: string;
   generations: Generation[];
-  // Define the response structure based on Cohere's API response
-  // Adjust the types according to the actual response structure from the API
-  // For example: data: string or data: { message: string }
 };
 
 const GeneratePage: React.FC = () => {
@@ -44,37 +40,15 @@ const GeneratePage: React.FC = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  // const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
-  //   try {
-  //     const options = {
-  //       method: "POST",
-  //       url: "https://api.cohere.ai/v1/generate",
-  //       headers: {
-  //         accept: "application/json",
-  //         "content-type": "application/json",
-  //         authorization: process.env.NEXT_PUBLIC_COHERE_API_KEY,
-  //       },
-  //       data: { prompt: values.prompt, num_generations: 1, max_tokens: 1000 },
-  //     };
-  //     console.log(process.env.NEXT_PUBLIC_COHERE_API_KEY);
-  //     const response = await axios.request<CohereApiResponse>(options);
-  //     setMessages((current) => [...current, response.data]);
-
-  //     form.reset();
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error("Something went wrong.");
-  //   }
-  // };
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      console.log(values, "VALUES VALUES")
-      const response = await axios.post('/api/generate', values); // Call the server-side API route
+      console.log(values, "VALUES VALUES");
+      const response = await axios.post("/api/generate", values); // Call the server-side API route
       setMessages((current) => [...current, response.data]);
       form.reset();
     } catch (error) {
       console.error(error);
-      toast.error('Something went wrong.');
+      toast.error("Something went wrong.");
     }
   };
   return (
@@ -123,7 +97,7 @@ const GeneratePage: React.FC = () => {
           <div className="mt-4 space-y-4">
             {isLoading && (
               <div className="flex items-center justify-center w-full p-8 rounded-lg bg-muted">
-                <Loader />
+                <Loader description="Cohere is generating your request" />
               </div>
             )}
             {messages.length === 0 && !isLoading && (

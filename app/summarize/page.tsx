@@ -4,14 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Empty } from "@/components/ui/empty";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Heading } from "@/components/ui/heading";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
 
 // Define types for data and API response
 type PromptFormValues = {
@@ -41,26 +40,11 @@ const SummarizePage: React.FC = () => {
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      const options = {
-        method: "POST",
-        url: "https://api.cohere.ai/v1/summarize",
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json",
-          authorization: process.env.NEXT_PUBLIC_COHERE_API_KEY,
-        },
-        data: {
-          text: values.text,
-        },
-      };
-
-      const response = await axios.request<CohereApiResponse>(options);
+      const response = await axios.post("/api/summarize", values);
       setSummaries((current) => [...current, response.data]);
-
       form.reset();
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong.");
     }
   };
 
@@ -96,6 +80,7 @@ const SummarizePage: React.FC = () => {
                     </FormItem>
                   )}
                 />
+
                 <Button
                   className="w-full col-span-12 p-5 lg:col-span-2"
                   type="submit"
@@ -110,13 +95,14 @@ const SummarizePage: React.FC = () => {
           <div className="mt-4 space-y-4">
             {isLoading && (
               <div className="flex items-center justify-center w-full p-8 rounded-lg bg-muted">
-                <Loader />
+                <Loader description="Cohere is summarizing your input" />
               </div>
             )}
             {summaries.length === 0 && !isLoading && (
               <Empty label="No summaries available." />
             )}
             <div className="flex flex-col-reverse gap-y-4">
+              <p className="text-sm">Input:</p>
               {summaries.map((summary) => (
                 <div
                   key={summary.id}
@@ -125,7 +111,7 @@ const SummarizePage: React.FC = () => {
                     "bg-neutral-200 border border-black/10"
                   )}
                 >
-                  <p className="text-sm">{summary.summary}</p>
+                  <p className="text-base">{summary.summary}</p>
                 </div>
               ))}
             </div>
@@ -137,3 +123,5 @@ const SummarizePage: React.FC = () => {
 };
 
 export default SummarizePage;
+
+// data: { message: 'invalid request: text must be longer than 250 characters'}

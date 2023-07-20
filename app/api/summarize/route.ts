@@ -6,8 +6,8 @@ export async function POST(req: Request) {
   try {
     console.log(req.body, "BODY BODY BODY");
     const body = await req.json();
-    const { prompt } = body; // Assuming the prompt is sent from the client
-    const cohereApiUrl = "https://api.cohere.ai/v1/generate";
+    const values = body; // Assuming the prompt is sent from the client
+    const cohereApiUrl = "https://api.cohere.ai/v1/summarize";
     const cohereApiKey = process.env.COHERE_API_KEY; // Use your environment variable here
 
     const options = {
@@ -18,14 +18,16 @@ export async function POST(req: Request) {
         "content-type": "application/json",
         authorization: cohereApiKey,
       },
-      data: { prompt, num_generations: 1, max_tokens: 1000 },
+      data: {
+        text: values.text,
+      },
     };
     console.log(options);
     const response = await axios.request(options);
     const responseData = response.data;
     return NextResponse.json(responseData);
   } catch (error) {
-    console.log("[GENERATE_ERROR]", error);
+    console.log("[SUMMARIZE_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

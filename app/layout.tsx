@@ -1,3 +1,4 @@
+import { ToastProvider } from "@/components/ui/toast";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -20,6 +21,7 @@ export default function RootLayout({
         <main className="flex flex-col justify-center items-center text-center min-h-screen bg-slate-950 px-[5vw]">
           {children}
         </main>
+        <ToastProvider />
       </body>
     </html>
   );

@@ -1,6 +1,11 @@
-import Image from "next/image"
+import Image from "next/image";
+import { FC } from "react";
 
-export const Loader = () => {
+interface LoaderProps {
+  description: string;
+}
+
+export const Loader: FC<LoaderProps> = ({ description }) => {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-y-4">
       <div className="relative w-10 h-10 animate-spin">
@@ -10,9 +15,7 @@ export const Loader = () => {
           fill
         /> */}
       </div>
-      <p className="text-sm text-muted-foreground">
-        Genius is thinking...
-      </p>
+      <p className="text-sm text-muted-foreground">{description}</p>
     </div>
   );
 };
