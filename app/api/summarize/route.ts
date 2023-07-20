@@ -24,6 +24,7 @@ export async function POST(req: Request) {
         format: values.format, // Use 'json' as the format option for JSON response
         model: values.model,
         extractiveness: values.extractiveness,
+        temperature: values.temperature,
       },
     };
     console.log(options);

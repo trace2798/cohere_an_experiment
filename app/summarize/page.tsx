@@ -13,6 +13,7 @@ import { SelectLength } from "./component/SelectLength";
 import { SelectFormat } from "./component/selectFormat";
 import { SelectModel } from "./component/selectModal";
 import { SelectExtractiveness } from "./component/selectExtractiveness";
+import { TemperatureSlider } from "./component/temperatureSlider";
 
 // Define types for data and API response
 type PromptFormValues = {
@@ -21,6 +22,7 @@ type PromptFormValues = {
   format: string;
   model: string;
   extractiveness: string;
+  temperature: number;
 };
 
 type CohereApiResponse = {
@@ -106,6 +108,7 @@ const SummarizePage: React.FC = () => {
                 <SelectFormat setValue={form.setValue} />
                 <SelectModel setValue={form.setValue} />
                 <SelectExtractiveness setValue={form.setValue} />
+                <TemperatureSlider setValue={form.setValue} />
               </div>
             </Form>
           </div>

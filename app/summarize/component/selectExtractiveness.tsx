@@ -17,6 +17,7 @@ type PromptFormValues = {
   format: string;
   model: string;
   extractiveness: string;
+  temperature: number;
 };
 
 interface SelectModelProps {
