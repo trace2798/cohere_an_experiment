@@ -23,7 +23,6 @@ import { SelectExtractiveness } from "./component/selectExtractiveness";
 import { SelectFormat } from "./component/selectFormat";
 import { SelectModel } from "./component/selectModal";
 import { TemperatureSlider } from "./component/temperatureSlider";
-
 import * as z from "zod";
 
 const promptFormValuesSchema = z.object({
