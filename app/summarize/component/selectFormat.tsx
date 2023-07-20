@@ -53,10 +53,10 @@ export function SelectFormat({ setValue }: SelectFormatProps) {
             >
               <HoverContentComponent
                 type="string"
-                defaultValue="medium"
-                options={["short", "medium", "long", "auto"]}
-                functionality="Indicates the approximate length of the summary."
-                note="If auto is selected, the best option will be picked based on the input text."
+                defaultValue="paragraph"
+                options={["paragraph", "bullets", "auto"]}
+                functionality="Indicates the style in which the summary will be delivered - in a free form paragraph or in bullet points."
+                note=" If auto is selected, the best option will be picked based on the input text."
               />
             </HoverCardContent>
           </HoverCard>
