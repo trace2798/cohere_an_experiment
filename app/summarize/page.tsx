@@ -24,7 +24,18 @@ import { SelectModel } from "./component/selectModal";
 import { TemperatureSlider } from "./component/temperatureSlider";
 import { useToast } from "@/components/ui/use-toast";
 
-// Define types for data and API response
+import * as z from "zod";
+
+// Define the schema for the form data
+const promptFormValuesSchema = z.object({
+  text: z.string().min(250, "Text must be at least 250 characters long"),
+  length: z.string(),
+  format: z.string(),
+  model: z.string(),
+  extractiveness: z.string(),
+  temperature: z.number(),
+});
+
 type PromptFormValues = {
   text: string;
   length: string;
@@ -44,7 +55,7 @@ type CohereApiResponse = {
   };
 };
 
-const SummarizePage: React.FC = () => {
+const SummarizePage = () => {
   const { toast } = useToast();
   const [summaries, setSummaries] = useState<CohereApiResponse[]>([]);
 
@@ -62,18 +73,35 @@ const SummarizePage: React.FC = () => {
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      const requestData = { ...values };
+      // Validate the form data
+      const validFormData = promptFormValuesSchema.parse(values);
+      const requestData = { ...validFormData };
       const response = await axios.post("/api/summarize", requestData);
+      setSummaries((current) => [...current, response.data]);
       setSummaries((current) => [...current, response.data]);
       toast({
         title: "Success!",
-        description: "Snippet added successfully",
-        duration: 5000,
+        description: "Text Successfully Summarized",
         variant: "default",
       });
       form.setValue("text", "");
     } catch (error) {
-      console.error(error);
+      if (error instanceof z.ZodError) {
+        // Handle Zod validation errors
+        toast({
+          title: "Validation Error!",
+          description: error.errors[0].message,
+          variant: "destructive",
+        });
+      } else {
+        // Handle other errors
+        console.error(error);
+        toast({
+          title: "Error!",
+          description: "Request could not be completed.",
+          variant: "destructive",
+        });
+      }
     }
   };
 
