@@ -10,11 +10,13 @@ import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { SelectLength } from "./component/SelectLength";
+import { SelectFormat } from "./component/selectFormat";
 
 // Define types for data and API response
 type PromptFormValues = {
   text: string;
   length: string;
+  format: string;
 };
 
 type CohereApiResponse = {
@@ -33,18 +35,19 @@ const SummarizePage: React.FC = () => {
   const form = useForm<PromptFormValues>({
     defaultValues: {
       text: "",
-      length: "", 
+      length: "medium",
+      format: "paragraph",
     },
   });
 
   const isLoading = form.formState.isSubmitting;
-  
+
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
       const requestData = { ...values };
       const response = await axios.post("/api/summarize", requestData);
       setSummaries((current) => [...current, response.data]);
-      form.reset();
+      form.setValue("text", "");
     } catch (error) {
       console.error(error);
     }
@@ -88,6 +91,9 @@ const SummarizePage: React.FC = () => {
                   Summarize
                 </Button>
                 <SelectLength setValue={form.setValue} />
+                <div className="ml-48">
+                  <SelectFormat setValue={form.setValue} />
+                </div>
               </form>
             </Form>
           </div>
