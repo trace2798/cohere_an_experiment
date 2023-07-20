@@ -63,7 +63,7 @@ export function SelectModel({ setValue }: SelectModelProps) {
         </div>
         <div>
           <Select value={selectedModel} onValueChange={handleFormatChange}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-fit md:w-[180px]">
               <SelectValue>{selectedModel}</SelectValue>
             </SelectTrigger>
             <SelectContent>

@@ -44,7 +44,7 @@ export function SelectFormat({ setValue }: SelectFormatProps) {
         <div className="flex items-center justify-center w-full">
           <HoverCard openDelay={200}>
             <HoverCardTrigger asChild>
-              <Label htmlFor="temperature" className="mr-10">Format</Label>
+              <Label htmlFor="temperature">Format</Label>
             </HoverCardTrigger>
             <HoverCardContent
               align="start"
@@ -63,7 +63,7 @@ export function SelectFormat({ setValue }: SelectFormatProps) {
         </div>
         <div>
           <Select value={selectedFormat} onValueChange={handleFormatChange}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-fit md:w-[180px]">
               <SelectValue>{selectedFormat}</SelectValue>
             </SelectTrigger>
             <SelectContent>

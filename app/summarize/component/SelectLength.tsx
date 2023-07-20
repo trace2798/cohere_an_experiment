@@ -69,7 +69,7 @@ export function SelectLength({ setValue }: SelectLengthProps) {
         </div>
         <div>
           <Select value={selectedLength} onValueChange={handleLengthChange}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-fit md:w-[180px]">
               <SelectValue>{selectedLength}</SelectValue>
             </SelectTrigger>
             <SelectContent>

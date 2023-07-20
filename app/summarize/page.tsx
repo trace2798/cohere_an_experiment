@@ -62,12 +62,12 @@ const SummarizePage: React.FC = () => {
   };
 
   return (
-    <div className="w-full p-10 rounded-lg">
+    <div className="w-full p-5 rounded-lg md:p-10">
       <div className="w-1/3">
         <Heading title="Summarize" description="Summarize using cohere." />
       </div>
 
-      <div className="flex flex-col w-full px-4 md:flex-row lg:px-8">
+      <div className="flex flex-col w-full md:flex-row lg:px-8">
         <div className="w-full">
           <Form {...form}>
             <form
@@ -99,7 +99,7 @@ const SummarizePage: React.FC = () => {
                 <SelectModel setValue={form.setValue} />
                 <SelectExtractiveness setValue={form.setValue} />
               </div> */}
-              <div className="grid w-full gap-2 p-2 overflow-hidden 2xl:grid-cols-2">
+              <div className="grid w-full p-2 overflow-hidden xl:gap-2 2xl:grid-cols-2">
                 <SelectLength setValue={form.setValue} />
                 <SelectFormat setValue={form.setValue} />
                 <SelectModel setValue={form.setValue} />

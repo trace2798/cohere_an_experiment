@@ -63,7 +63,7 @@ export function SelectExtractiveness({ setValue }: SelectModelProps) {
             value={selectedExtractiveness}
             onValueChange={handleFormatChange}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-fit md:w-[180px]">
               <SelectValue>{selectedExtractiveness}</SelectValue>
             </SelectTrigger>
             <SelectContent>
