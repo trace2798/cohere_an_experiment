@@ -16,6 +16,7 @@ type PromptFormValues = {
   length: string;
   format: string;
   model: string;
+  extractiveness: string;
 };
 
 interface SelectModelProps {
@@ -38,7 +39,7 @@ export function SelectModel({ setValue }: SelectModelProps) {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Summary Format</SelectLabel>
+            <SelectLabel>Summary odel</SelectLabel>
             {["summarize-medium", "summarize-xlarge"].map((format) => (
               <SelectItem key={format} value={format}>
                 {format}

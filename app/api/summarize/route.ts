@@ -22,7 +22,8 @@ export async function POST(req: Request) {
         text: values.text,
         length: values.length,
         format: values.format, // Use 'json' as the format option for JSON response
-     model: values.model,
+        model: values.model,
+        extractiveness: values.extractiveness,
       },
     };
     console.log(options);

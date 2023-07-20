@@ -19,28 +19,28 @@ type PromptFormValues = {
   extractiveness: string;
 };
 
-interface SelectFormatProps {
+interface SelectModelProps {
   setValue: UseFormSetValue<PromptFormValues>;
 }
 
-export function SelectFormat({ setValue }: SelectFormatProps) {
+export function SelectExtractiveness({ setValue }: SelectModelProps) {
   const handleFormatChange = (value: string) => {
-    setSelectedFormat(value);
-    setValue("format", value); // Update the format property in the form data
+    setSelectedExtractiveness(value);
+    setValue("extractiveness", value); // Update the format property in the form data
   };
 
-  const [selectedFormat, setSelectedFormat] = useState("paragraph");
+  const [selectedExtractiveness, setSelectedExtractiveness] = useState("low");
 
   return (
     <>
-      <Select value={selectedFormat} onValueChange={handleFormatChange}>
+      <Select value={selectedExtractiveness} onValueChange={handleFormatChange}>
         <SelectTrigger className="w-[180px]">
-          <SelectValue>{selectedFormat}</SelectValue>
+          <SelectValue>{selectedExtractiveness}</SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Summary Format</SelectLabel>
-            {["paragraph", "bullets", "auto"].map((format) => (
+            <SelectLabel>Summary Extractiveness</SelectLabel>
+            {["low", "medium", "high", "auto"].map((format) => (
               <SelectItem key={format} value={format}>
                 {format}
               </SelectItem>
