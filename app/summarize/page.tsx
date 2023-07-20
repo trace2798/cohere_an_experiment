@@ -14,6 +14,13 @@ import { SelectFormat } from "./component/selectFormat";
 import { SelectModel } from "./component/selectModal";
 import { SelectExtractiveness } from "./component/selectExtractiveness";
 import { TemperatureSlider } from "./component/temperatureSlider";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { Label } from "@/components/ui/label";
+import { HoverContentComponent } from "@/components/HoverContentCompoent";
 
 // Define types for data and API response
 type PromptFormValues = {
@@ -63,8 +70,11 @@ const SummarizePage: React.FC = () => {
 
   return (
     <div className="w-full p-5 rounded-lg md:p-10">
-      <div className="w-1/3">
-        <Heading title="Summarize" description="Summarize using cohere." />
+      <div className="w-full">
+        <Heading
+          title="Summarize"
+          description="This endpoint generates a summary in English for a given text."
+        />
       </div>
 
       <div className="flex flex-col w-full md:flex-row lg:px-8">
@@ -74,13 +84,31 @@ const SummarizePage: React.FC = () => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col w-full grid-cols-12 gap-2 p-4 px-3 border rounded-lg md:px-6 focus-within:shadow-sm"
             >
+              <HoverCard openDelay={200}>
+                <HoverCardTrigger asChild>
+                  <Label htmlFor="temperature" className="pl-3 text-left">Text (required)</Label>
+                </HoverCardTrigger>
+                <HoverCardContent
+                  align="start"
+                  className="w-[260px] text-sm"
+                  side="left"
+                >
+                  <HoverContentComponent
+                    type="string"
+                    defaultValue="REQUIRED"
+                    options={["N/A"]}
+                    functionality="The text to generate a summary for."
+                    note="Can be up to 100,000 characters long. Currently the only supported language is English."
+                  />
+                </HoverCardContent>
+              </HoverCard>
               <FormField
                 name="text"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-10">
                     <FormControl className="p-0 m-0">
                       <Textarea
-                        className="pl-3 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="pt-3 pl-3 mb-5 border focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
                         placeholder="Enter text to summarize"
                         {...field}
@@ -99,7 +127,7 @@ const SummarizePage: React.FC = () => {
                 <SelectModel setValue={form.setValue} />
                 <SelectExtractiveness setValue={form.setValue} />
               </div> */}
-              <div className="grid w-full p-2 overflow-hidden xl:gap-2 2xl:grid-cols-2">
+              <div className="grid w-full p-2 -mt-10 overflow-hidden xl:gap-2 2xl:grid-cols-2">
                 <SelectLength setValue={form.setValue} />
                 <SelectFormat setValue={form.setValue} />
                 <SelectModel setValue={form.setValue} />
