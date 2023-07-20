@@ -62,12 +62,12 @@ const SummarizePage: React.FC = () => {
   };
 
   return (
-    <div className="p-10 rounded-lg">
+    <div className="w-full p-10 rounded-lg">
       <div className="w-1/3">
         <Heading title="Summarize" description="Summarize using cohere." />
       </div>
 
-      <div className="flex flex-col px-4 md:flex-row lg:px-8">
+      <div className="flex flex-col w-full px-4 md:flex-row lg:px-8">
         <div className="w-full">
           <Form {...form}>
             <form
@@ -93,7 +93,13 @@ const SummarizePage: React.FC = () => {
                 title="Available option"
                 description="All set to default. Change to Playaround"
               />
-              <div className="flex flex-col flex-wrap justify-between w-full col-span-12 lg:col-span-2">
+              {/* <div className="flex flex-col flex-wrap justify-between w-full col-span-12 lg:col-span-2">
+                <SelectLength setValue={form.setValue} />
+                <SelectFormat setValue={form.setValue} />
+                <SelectModel setValue={form.setValue} />
+                <SelectExtractiveness setValue={form.setValue} />
+              </div> */}
+              <div className="grid w-full gap-2 p-2 overflow-hidden 2xl:grid-cols-2">
                 <SelectLength setValue={form.setValue} />
                 <SelectFormat setValue={form.setValue} />
                 <SelectModel setValue={form.setValue} />
@@ -142,3 +148,4 @@ const SummarizePage: React.FC = () => {
 export default SummarizePage;
 
 // data: { message: 'invalid request: text must be longer than 250 characters'}
+//   temperature: undefined

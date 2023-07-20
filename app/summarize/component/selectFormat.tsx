@@ -40,11 +40,11 @@ export function SelectFormat({ setValue }: SelectFormatProps) {
 
   return (
     <>
-      <div className="flex justify-between w-full my-3">
+      <div className="flex justify-between p-3 m-3 border rounded-lg w-fill border-slate-800">
         <div className="flex items-center justify-center w-full">
           <HoverCard openDelay={200}>
             <HoverCardTrigger asChild>
-              <Label htmlFor="temperature">Format</Label>
+              <Label htmlFor="temperature" className="mr-10">Format</Label>
             </HoverCardTrigger>
             <HoverCardContent
               align="start"
