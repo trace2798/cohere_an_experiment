@@ -1,6 +1,7 @@
 import { LoaderIcon } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
+import { BounceLoader } from "react-spinners";
 
 interface LoaderProps {
   description: string;
@@ -9,13 +10,8 @@ interface LoaderProps {
 export const Loader: FC<LoaderProps> = ({ description }) => {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-y-4">
-      <div className="relative w-10 h-10 animate-spin">
-        {/* <Image
-          alt="Logo"
-          src="/logo.png"
-          fill
-        /> */}
-        <LoaderIcon/>
+      <div className="relative w-10 h-10">
+        <BounceLoader color="#22c55e" size={40} />
       </div>
       <p className="text-sm text-muted-foreground">{description}</p>
     </div>

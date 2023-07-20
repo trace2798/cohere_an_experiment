@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/hover-card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { useState } from "react";
@@ -22,11 +23,9 @@ import { SelectExtractiveness } from "./component/selectExtractiveness";
 import { SelectFormat } from "./component/selectFormat";
 import { SelectModel } from "./component/selectModal";
 import { TemperatureSlider } from "./component/temperatureSlider";
-import { useToast } from "@/components/ui/use-toast";
 
 import * as z from "zod";
 
-// Define the schema for the form data
 const promptFormValuesSchema = z.object({
   text: z.string().min(250, "Text must be at least 250 characters long"),
   length: z.string(),
@@ -73,7 +72,7 @@ const SummarizePage = () => {
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      // Validate the form data
+      // Validating the form data with zob
       const validFormData = promptFormValuesSchema.parse(values);
       const requestData = { ...validFormData };
       const response = await axios.post("/api/summarize", requestData);
@@ -87,14 +86,14 @@ const SummarizePage = () => {
       form.setValue("text", "");
     } catch (error) {
       if (error instanceof z.ZodError) {
-        // Handle Zod validation errors
+        // Handling Zod validation errors
         toast({
           title: "Validation Error!",
           description: error.errors[0].message,
           variant: "destructive",
         });
       } else {
-        // Handle other errors
+        // Error not related to Zod
         console.error(error);
         toast({
           title: "Error!",
@@ -188,7 +187,7 @@ const SummarizePage = () => {
         </div>
         <div className="w-1/2 mt-4 space-y-4">
           {isLoading && (
-            <div className="flex items-center justify-center w-full p-8 rounded-lg bg-muted">
+            <div className="flex items-center justify-center w-full p-8 ml-10 rounded-lg bg-muted">
               <Loader description="Cohere is summarizing your input" />
             </div>
           )}
