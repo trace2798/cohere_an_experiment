@@ -1,3 +1,4 @@
+import { LoaderIcon } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
 
@@ -14,6 +15,7 @@ export const Loader: FC<LoaderProps> = ({ description }) => {
           src="/logo.png"
           fill
         /> */}
+        <LoaderIcon/>
       </div>
       <p className="text-sm text-muted-foreground">{description}</p>
     </div>
