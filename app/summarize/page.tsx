@@ -1,26 +1,27 @@
 "use client";
+import { HoverContentComponent } from "@/components/HoverContentCompoent";
 import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import { Empty } from "@/components/ui/empty";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Heading } from "@/components/ui/heading";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
-import axios from "axios";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { SelectLength } from "./component/SelectLength";
-import { SelectFormat } from "./component/selectFormat";
-import { SelectModel } from "./component/selectModal";
-import { SelectExtractiveness } from "./component/selectExtractiveness";
-import { TemperatureSlider } from "./component/temperatureSlider";
+import { HeadingApi } from "@/components/ui/heading-api";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Label } from "@/components/ui/label";
-import { HoverContentComponent } from "@/components/HoverContentCompoent";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+import axios from "axios";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { SelectLength } from "./component/SelectLength";
+import { SelectExtractiveness } from "./component/selectExtractiveness";
+import { SelectFormat } from "./component/selectFormat";
+import { SelectModel } from "./component/selectModal";
+import { TemperatureSlider } from "./component/temperatureSlider";
 
 // Define types for data and API response
 type PromptFormValues = {
@@ -71,9 +72,11 @@ const SummarizePage: React.FC = () => {
   return (
     <div className="w-full p-5 rounded-lg md:p-10">
       <div className="w-full">
-        <Heading
+        <HeadingApi
           title="Summarize"
           description="This endpoint generates a summary in English for a given text."
+          method="POST"
+          link="https://api.cohere.ai/v1/summarize"
         />
       </div>
 
@@ -86,7 +89,9 @@ const SummarizePage: React.FC = () => {
             >
               <HoverCard openDelay={200}>
                 <HoverCardTrigger asChild>
-                  <Label htmlFor="temperature" className="pl-3 text-left">Text (required)</Label>
+                  <Label htmlFor="temperature" className="pl-3 text-left">
+                    Text (required)
+                  </Label>
                 </HoverCardTrigger>
                 <HoverCardContent
                   align="start"
