@@ -11,6 +11,11 @@ import {
 
 import { UseFormSetValue } from "react-hook-form";
 import { Label } from "@radix-ui/react-label";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@radix-ui/react-hover-card";
 type PromptFormValues = {
   text: string;
   length: string;
@@ -34,21 +39,51 @@ export function SelectExtractiveness({ setValue }: SelectModelProps) {
 
   return (
     <>
-      <Select value={selectedExtractiveness} onValueChange={handleFormatChange}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue>{selectedExtractiveness}</SelectValue>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Summary Extractiveness</SelectLabel>
-            {["low", "medium", "high", "auto"].map((format) => (
-              <SelectItem key={format} value={format}>
-                {format}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      <div className="flex justify-between w-full my-3">
+        <div className="flex items-center justify-center w-full">
+          <HoverCard openDelay={100}>
+            <HoverCardTrigger asChild>
+              <Label htmlFor="temperature">Extractiveness</Label>
+            </HoverCardTrigger>
+            <HoverCardContent
+              align="start"
+              className="w-[260px] text-sm"
+              side="left"
+            >
+              <div>
+                <p>Type:</p>
+                <p>What it does:</p>
+              </div>
+              One of low, medium, high, or auto, defaults to auto. Controls how
+              close to the original text the summary is. high extractiveness
+              summaries will lean towards reusing sentences verbatim, while low
+              extractiveness summaries will tend to paraphrase more. If auto is
+              selected, the best option will be picked based on the input text.
+              Default: low
+            </HoverCardContent>
+          </HoverCard>
+        </div>
+        <div>
+          <Select
+            value={selectedExtractiveness}
+            onValueChange={handleFormatChange}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue>{selectedExtractiveness}</SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Summary Extractiveness</SelectLabel>
+                {["low", "medium", "high", "auto"].map((format) => (
+                  <SelectItem key={format} value={format}>
+                    {format}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
     </>
   );
 }
