@@ -16,12 +16,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import axios from "axios";
-import { MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { SelectLength } from "../summarize/component/SelectLength";
-import { TemperatureSlider } from "../summarize/component/temperatureSlider";
+import * as z from "zod";
 
 type PromptFormValues = {
   prompt: string;
@@ -118,12 +116,9 @@ const GeneratePage: React.FC = () => {
                 description="All set to default. Change to experiment."
               />
               <div className="grid w-full p-2 -mt-10 overflow-hidden xl:gap-2 2xl:grid-cols-2">
-                SelectModel string
-                num_generations integer
-                max_tokens integer
-              
+                SelectModel string num_generations integer max_tokens integer
               </div>
-            
+
               <Button
                 className="col-span-12 p-5 w-fit lg:col-span-12"
                 type="submit"
