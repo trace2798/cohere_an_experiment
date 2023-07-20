@@ -133,7 +133,7 @@ const GeneratePage: React.FC = () => {
         <div className="w-1/2 mt-4 space-y-4">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-8 ml-10 rounded-lg bg-muted">
-              <Loader description="Cohere is summarizing your input" />
+              <Loader description="Cohere is generating." />
             </div>
           )}
           {messages.length === 0 && !isLoading && (
