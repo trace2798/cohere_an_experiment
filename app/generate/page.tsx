@@ -54,13 +54,7 @@ const GeneratePage: React.FC = () => {
   return (
     <div className="p-10 rounded-lg">
       <div className="flex">
-        <Heading
-          title="Generate"
-          description="Generate using cohere."
-          icon={MessageSquare}
-          iconColor="text-violet-500"
-          bgColor="bg-violet-500/10"
-        />
+        <Heading title="Generate" description="Generate using cohere." />
         <div className="px-4 lg:px-8">
           <div>
             <Form {...form}>

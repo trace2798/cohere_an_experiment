@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       },
       data: {
         text: values.text,
-        length: "long",
+        length: values.length,
         format: "bullets", // Use 'json' as the format option for JSON response
       },
     };

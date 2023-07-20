@@ -5,16 +5,16 @@ import { Empty } from "@/components/ui/empty";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Heading } from "@/components/ui/heading";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import axios from "axios";
-import { MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { SelectLength } from "./component/SelectLength";
 
 // Define types for data and API response
 type PromptFormValues = {
   text: string;
+  length: string;
 };
 
 type CohereApiResponse = {
@@ -33,14 +33,16 @@ const SummarizePage: React.FC = () => {
   const form = useForm<PromptFormValues>({
     defaultValues: {
       text: "",
+      length: "", 
     },
   });
 
   const isLoading = form.formState.isSubmitting;
-
+  
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      const response = await axios.post("/api/summarize", values);
+      const requestData = { ...values };
+      const response = await axios.post("/api/summarize", requestData);
       setSummaries((current) => [...current, response.data]);
       form.reset();
     } catch (error) {
@@ -49,53 +51,10 @@ const SummarizePage: React.FC = () => {
   };
 
   return (
-    <div className="p-10 rounded-lg">
+    <div className="p-10 rounded-lg bg-neutral-200">
       <div className="flex">
-        <div>
-          <Heading
-            title="Summarize"
-            description="Summarize using cohere."
-          
-            bgColor="bg-violet-500/10"
-          />
-          text
-
-Type: string
-Required: true
-Description: The text to generate a summary for. Can be up to 100,000 characters long. Currently, the only supported language is English.
-length
-
-Type: string
-Default: "medium"
-Available values: "short", "medium", "long", "auto"
-Description: Indicates the approximate length of the summary. If "auto" is selected, the best option will be picked based on the input text.
-format
-
-Type: string
-Default: "paragraph"
-Available values: "paragraph", "bullets", "auto"
-Description: Indicates the style in which the summary will be delivered - in a free-form paragraph or in bullet points. If "auto" is selected, the best option will be picked based on the input text.
-model
-
-Type: string
-Default: "summarize-xlarge"
-Available values: "summarize-medium", "summarize-xlarge"
-Description: The ID of the model to generate the summary with. Currently available models are "summarize-medium" and "summarize-xlarge" (default). Smaller models are faster, while larger models will perform better.
-extractiveness
-
-Type: string
-Default: "low"
-Available values: "low", "medium", "high", "auto"
-Description: Controls how close to the original text the summary is. "High extractiveness" summaries will lean towards reusing sentences verbatim, while "low extractiveness" summaries will tend to paraphrase more. If "auto" is selected, the best option will be picked based on the input text.
-temperature
-
-Type: number
-Range: 0 to 5
-Description: Controls the randomness of the output. Lower values tend to generate more “predictable” output, while higher values tend to generate more “creative” output. The sweet spot is typically between 0 and 1.
-additional_command
-
-Type: string
-Description: A free-form instruction for modifying how the summaries get generated. Should complete the sentence "Generate a summary _". E.g., "focusing on the next steps" or "written by Yoda".
+        <div className="w-1/3">
+          <Heading title="Summarize" description="Summarize using cohere." />
         </div>
         <div className="px-4 lg:px-8">
           <div>
@@ -128,6 +87,7 @@ Description: A free-form instruction for modifying how the summaries get generat
                 >
                   Summarize
                 </Button>
+                <SelectLength setValue={form.setValue} />
               </form>
             </Form>
           </div>
