@@ -63,77 +63,75 @@ const SummarizePage: React.FC = () => {
 
   return (
     <div className="p-10 rounded-lg">
-      <div className="flex">
-        <div className="w-1/3">
-          <Heading title="Summarize" description="Summarize using cohere." />
-        </div>
-        <div className="px-4 lg:px-8">
-          <div>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="grid w-full grid-cols-12 gap-2 p-4 px-3 border rounded-lg md:px-6 focus-within:shadow-sm"
-              >
-                <FormField
-                  name="text"
-                  render={({ field }) => (
-                    <FormItem className="col-span-12 lg:col-span-10">
-                      <FormControl className="p-0 m-0">
-                        <Textarea
-                          className="pl-3 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                          disabled={isLoading}
-                          placeholder="Enter text to summarize"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+      <div className="w-1/3">
+        <Heading title="Summarize" description="Summarize using cohere." />
+      </div>
 
-                <Button
-                  className="w-full col-span-12 p-5 lg:col-span-2"
-                  type="submit"
-                  disabled={isLoading}
-                  size="icon"
-                >
-                  Summarize
-                </Button>
-              </form>
-              <div className="flex flex-wrap justify-between w-full">
-                <Heading
-                  title="Available option"
-                  description="All set to default. Change to Playaround"
-                />
+      <div className="flex flex-col px-4 md:flex-row lg:px-8">
+        <div className="w-full">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col w-full grid-cols-12 gap-2 p-4 px-3 border rounded-lg md:px-6 focus-within:shadow-sm"
+            >
+              <FormField
+                name="text"
+                render={({ field }) => (
+                  <FormItem className="col-span-12 lg:col-span-10">
+                    <FormControl className="p-0 m-0">
+                      <Textarea
+                        className="pl-3 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        disabled={isLoading}
+                        placeholder="Enter text to summarize"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <Heading
+                title="Available option"
+                description="All set to default. Change to Playaround"
+              />
+              <div className="flex flex-col flex-wrap justify-between w-full col-span-12 lg:col-span-2">
                 <SelectLength setValue={form.setValue} />
                 <SelectFormat setValue={form.setValue} />
                 <SelectModel setValue={form.setValue} />
                 <SelectExtractiveness setValue={form.setValue} />
-                <TemperatureSlider setValue={form.setValue} />
               </div>
-            </Form>
-          </div>
-          <div className="mt-4 space-y-4">
-            {isLoading && (
-              <div className="flex items-center justify-center w-full p-8 rounded-lg bg-muted">
-                <Loader description="Cohere is summarizing your input" />
-              </div>
-            )}
-            {summaries.length === 0 && !isLoading && (
-              <Empty label="No summaries available." />
-            )}
-            <div className="flex flex-col-reverse gap-y-4">
-              {summaries.map((summary) => (
-                <div
-                  key={summary.id}
-                  className={cn(
-                    "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                    "dark:bg-zinc-900 border border-black/10"
-                  )}
-                >
-                  <p className="text-base">{summary.summary}</p>
-                </div>
-              ))}
+              <TemperatureSlider setValue={form.setValue} />
+              <Button
+                className="col-span-12 p-5 w-fit lg:col-span-12"
+                type="submit"
+                disabled={isLoading}
+                size="icon"
+              >
+                Summarize
+              </Button>
+            </form>
+          </Form>
+        </div>
+        <div className="w-1/2 mt-4 space-y-4">
+          {isLoading && (
+            <div className="flex items-center justify-center w-full p-8 rounded-lg bg-muted">
+              <Loader description="Cohere is summarizing your input" />
             </div>
+          )}
+          {summaries.length === 0 && !isLoading && (
+            <Empty label="No summaries available." />
+          )}
+          <div className="flex flex-col-reverse gap-y-4">
+            {summaries.map((summary) => (
+              <div
+                key={summary.id}
+                className={cn(
+                  "ml-10 p-8 w-full flex items-start gap-x-8 rounded-lg",
+                  "dark:bg-zinc-900 border border-black/10"
+                )}
+              >
+                <p className="text-base">{summary.summary}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
