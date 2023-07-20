@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <main className="flex flex-col justify-center items-center text-center min-h-screen px-[5vw]">
+           <Link href="/explore">Explore</Link>
             <ModeToggle />
             {children}
           </main>
