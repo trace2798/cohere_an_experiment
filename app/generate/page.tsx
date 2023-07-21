@@ -1,5 +1,4 @@
 "use client";
-
 import { HoverContentComponent } from "@/components/HoverContentCompoent";
 import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
@@ -29,12 +28,15 @@ import {
 } from "./data/num_generations";
 import { TemperatureSliderComponent } from "@/components/options/temperature-slider";
 import { hoverTemperatureContent } from "./data/temperature";
+import { MaxTokenSliderComponent } from "@/components/options/max-token-slider";
+import { hoverMaxTokenContent } from "./data/max-tokens";
 
 type PromptFormValues = {
   prompt: string;
   model: string;
   num_generations: number;
   temperature: number;
+  max_tokens: number;
 };
 
 type Generation = {
@@ -57,7 +59,8 @@ const GeneratePage = () => {
       prompt: "",
       model: "command",
       num_generations: 1,
-      temperature: 0.5
+      temperature: 0.5,
+      max_tokens: 1000,
     },
   });
 
@@ -145,6 +148,10 @@ const GeneratePage = () => {
                 <TemperatureSliderComponent
                   setValue={form.setValue}
                   hoverContentProps={hoverTemperatureContent}
+                />
+                <MaxTokenSliderComponent
+                  setValue={form.setValue}
+                  hoverContentProps={hoverMaxTokenContent}
                 />
               </div>
 
