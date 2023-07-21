@@ -4,6 +4,11 @@ export interface Model {
 }
 
 export interface Generations {
-    id: string;
-    numberOfGenerations: integer;
-  }
+  id: string;
+  numberOfGenerations: integer;
+}
+
+export interface Truncate {
+  id: string;
+  truncate: integer;
+}

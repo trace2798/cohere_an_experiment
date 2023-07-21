@@ -16,6 +16,7 @@ type PromptFormValues = {
   num_generations: number;
   temperature: number;
   max_tokens: number;
+  truncate: string;
 };
 
 interface MaxTokenSliderProps {

@@ -38,6 +38,7 @@ type PromptFormValues = {
   num_generations: number;
   temperature: number;
   max_tokens: number;
+  truncate: string;
 };
 
 type Generation = {
@@ -62,6 +63,7 @@ const GeneratePage = () => {
       num_generations: 1,
       temperature: 0.5,
       max_tokens: 1000,
+      truncate: "END",
     },
   });
 

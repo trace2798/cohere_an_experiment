@@ -30,6 +30,8 @@ import { TemperatureSliderComponent } from "@/components/options/temperature-sli
 import { hoverTemperatureContent } from "./data/temperature";
 import { MaxTokenSliderComponent } from "@/components/options/max-token-slider";
 import { hoverMaxTokenContent } from "./data/max-tokens";
+import { SelectTruncate } from "@/components/options/truncate-selector";
+import { hoverTruncateContent, truncate } from "./data/truncate";
 
 type PromptFormValues = {
   prompt: string;
@@ -37,6 +39,7 @@ type PromptFormValues = {
   num_generations: number;
   temperature: number;
   max_tokens: number;
+  truncate: string;
 };
 
 type Generation = {
@@ -61,6 +64,7 @@ const GeneratePage = () => {
       num_generations: 1,
       temperature: 0.5,
       max_tokens: 1000,
+      truncate: "END",
     },
   });
 
@@ -152,6 +156,9 @@ const GeneratePage = () => {
                 <MaxTokenSliderComponent
                   setValue={form.setValue}
                   hoverContentProps={hoverMaxTokenContent}
+                />
+                <SelectTruncate truncate={truncate}  setValue={form.setValue}
+                  hoverContentProps={hoverTruncateContent}
                 />
               </div>
 

@@ -28,6 +28,7 @@ type PromptFormValues = {
   num_generations: number;
   temperature: number;
   max_tokens: number;
+  truncate: string;
 };
 
 interface SelectModelProps {
@@ -60,7 +61,7 @@ export function SelectModel({
         <div className="flex items-center justify-center w-full">
           <HoverCard openDelay={200}>
             <HoverCardTrigger asChild>
-              <Label htmlFor="temperature">Model</Label>
+              <Label htmlFor="model">Model</Label>
             </HoverCardTrigger>
             <HoverCardContent
               align="start"
