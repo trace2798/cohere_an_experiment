@@ -138,23 +138,26 @@ const DetectLanguagePage = () => {
                   )}
                 />
               ))}
+              <div className="flex flex-col justify-between xl:justify-around md:flex-row">
               <Button
                 className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
                 type="button"
                 onClick={addInputField}
                 size="icon"
+                variant="ghost"
               >
-                Add more text fields
+                Add text fields
               </Button>
 
               <Button
-                className="col-span-12 p-5 mt-10 w-fit lg:col-span-12"
+                className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
                 type="submit"
                 disabled={isLoading}
                 size="icon"
               >
                 Detect Language
               </Button>
+              </div>
             </form>
           </Form>
         </div>
