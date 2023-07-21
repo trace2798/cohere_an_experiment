@@ -55,8 +55,7 @@ const cardContentData = [
   },
   {
     title: "Generate Code",
-    description:
-      "Using generate end point to generate code.",
+    description: "Using generate end point to generate code.",
     disable: false,
   },
 ];
@@ -64,7 +63,7 @@ const cardContentData = [
 const ExplorePage: FC<ExplorePageProps> = ({}) => {
   return (
     <>
-      <h2 className="mb-10 text-3xl font-bold text-neutral-200">
+      <h2 className="mb-10 text-3xl font-bold text-primary">
         Available API Endpoints
       </h2>
       <Spotlight className="grid items-start max-w-sm gap-6 mx-auto lg:grid-cols-3 lg:max-w-none group">

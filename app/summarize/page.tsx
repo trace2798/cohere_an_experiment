@@ -123,7 +123,7 @@ const SummarizePage = () => {
             >
               <HoverCard openDelay={200}>
                 <HoverCardTrigger asChild>
-                  <Label htmlFor="temperature" className="pl-3 text-left">
+                  <Label htmlFor="summarize" className="pl-3 text-left w-fit">
                     Text (required)
                   </Label>
                 </HoverCardTrigger>

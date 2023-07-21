@@ -101,7 +101,7 @@ const GeneratePage = () => {
             >
               <HoverCard openDelay={200}>
                 <HoverCardTrigger asChild>
-                  <Label htmlFor="temperature" className="pl-3 text-left">
+                  <Label htmlFor="prompt" className="pl-3 text-left w-fit">
                     Prompt (required)
                   </Label>
                 </HoverCardTrigger>

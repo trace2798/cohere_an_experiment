@@ -6,10 +6,13 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <h1 className="text-8xl font-bold text-neutral-200">
-        An Experiment with <span className="bg-gradient-to-r bg-clip-text text-transparent from-yellow-500 via-purple-500 to-red-500 animate-text">Cohere Ai</span> 
+      <h1 className="font-bold text-8xl text-primary">
+        An Experiment with{" "}
+        <span className="text-transparent bg-gradient-to-r bg-clip-text from-yellow-500 via-purple-500 to-red-500 animate-text">
+          Cohere Ai
+        </span>
       </h1>
-      <h2 className="text-3xl text-slate-500 mt-5">
+      <h2 className="mt-5 text-3xl text-slate-500">
         Trying to implement all the api endpoints offered by Cohere with Next.Js
       </h2>
       <Link href="/explore">
