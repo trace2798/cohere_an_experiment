@@ -77,7 +77,6 @@ const SummarizePage = () => {
       const requestData = { ...validFormData };
       const response = await axios.post("/api/summarize", requestData);
       setSummaries((current) => [...current, response.data]);
-      setSummaries((current) => [...current, response.data]);
       toast({
         title: "Success!",
         description: "Text Successfully Summarized",
