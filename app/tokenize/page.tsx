@@ -7,21 +7,19 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Heading } from "@/components/ui/heading";
 import { HeadingApi } from "@/components/ui/heading-api";
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import * as z from "zod";
-import { hoverModelContent, models } from "./data/models";
 import { SelectModel } from "./components/model-select";
-import { useToast } from "@/components/ui/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { hoverModelContent, models } from "./data/models";
 
 type PromptFormValues = {
   text: string;
@@ -32,10 +30,6 @@ type TokenizeResponse = {
   tokens: number[];
   token_strings: string[];
 };
-
-// const textSchema = z.string().min(2, {
-//   message: "Username must be at least 2 characters.",
-// });
 
 const TokenizePage = () => {
   const { toast } = useToast();
