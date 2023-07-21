@@ -27,7 +27,7 @@ const cardContentData = [
     title: "Tokenize",
     description:
       "This endpoint splits input text into smaller units called tokens using byte-pair encoding (BPE).",
-    disable: true,
+    disable: false,
   },
   {
     title: "Detokenize",
