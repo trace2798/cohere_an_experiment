@@ -21,6 +21,7 @@ import { toast } from "react-hot-toast";
 import * as z from "zod";
 import { hoverModelContent, models } from "./data/models";
 import { SelectModel } from "./components/model-select";
+import { useToast } from "@/components/ui/use-toast";
 
 type PromptFormValues = {
   text: string;
@@ -30,14 +31,12 @@ type PromptFormValues = {
 type TokenizeResponse = {
   tokens: number[];
   token_strings: string[];
-  meta: {
-    api_version: {
-      version: string;
-    };
-  };
 };
 
+const textSchema = z.string().min(1).max(65536);
+
 const TokenizePage = () => {
+  const { toast } = useToast();
   const [messages, setMessages] = useState<TokenizeResponse[]>([]);
   const [characterCount, setCharacterCount] = useState<number>(0);
 
@@ -57,13 +56,27 @@ const TokenizePage = () => {
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      console.log(values, "VALUES VALUES");
-      const response = await axios.post("/api/tokenize", values); // Call the server-side API route
+      const validatedValues = textSchema.parse(values);
+      console.log(validatedValues, "VALUES VALUES");
+      const response = await axios.post("/api/tokenize", validatedValues); // Call the server-side API route
       setMessages((current) => [...current, response.data]);
       form.reset();
     } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong.");
+      if (error instanceof z.ZodError) {
+        // Handle Zod validation error
+        toast({
+          title: "Error",
+          description: "Something wrong with your input",
+          variant: "destructive",
+        });
+      } else {
+        console.error(error);
+        toast({
+          title: "Error!",
+          description: "Request could not be completed.",
+          variant: "destructive",
+        });
+      }
     }
   };
 
@@ -84,34 +97,47 @@ const TokenizePage = () => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col w-full grid-cols-12 gap-2 p-4 px-3 border rounded-lg md:px-6 focus-within:shadow-sm"
             >
-              <HoverCard openDelay={200}>
-                <HoverCardTrigger asChild>
-                  <div className="flex justify-between">
+              <div className="flex justify-between">
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
                     <Label htmlFor="text" className="pl-3 text-left w-fit">
                       text (required)
                     </Label>
-                    <span className="text-sm text-gray-500">
-                      {characterCount}
-                    </span>
-                  </div>
-                </HoverCardTrigger>
-                <HoverCardContent
-                  align="start"
-                  className="w-[260px] text-sm"
-                  side="left"
-                >
-                  <HoverContentComponent
-                    type="string"
-                    defaultValue="REQUIRED"
-                    options={[
-                      "Minimum text length: 1 character",
-                      "Minimum text length: 65536 character",
-                    ]}
-                    functionality="The string to be tokenized"
-                    note="N/A"
-                  />
-                </HoverCardContent>
-              </HoverCard>
+                  </HoverCardTrigger>
+                  <HoverCardContent
+                    align="start"
+                    className="w-[260px] text-sm"
+                    side="left"
+                  >
+                    <HoverContentComponent
+                      type="string"
+                      defaultValue="REQUIRED"
+                      options={[
+                        "Minimum text length: 1 character",
+                        "Minimum text length: 65536 character",
+                      ]}
+                      functionality="The string to be tokenized"
+                      note="N/A"
+                    />
+                  </HoverCardContent>
+                </HoverCard>
+                <HoverCard openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <Label htmlFor="text" className="pl-3 text-left w-fit">
+                      <span className="text-sm text-gray-500">
+                        {characterCount}
+                      </span>
+                    </Label>
+                  </HoverCardTrigger>
+                  <HoverCardContent
+                    align="start"
+                    className="w-[260px] text-sm"
+                    side="left"
+                  >
+                    Number of Characters
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
               <FormField
                 name="text"
                 render={({ field }) => (

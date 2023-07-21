@@ -14,7 +14,6 @@ export const hoverModelContent = {
   note: "Custom models can also be supplied with their full ID.",
 };
 
-
 export const models: Model[] = [
   {
     id: "0001",
@@ -31,5 +30,13 @@ export const models: Model[] = [
   {
     id: "0004",
     name: "command-light-nightly",
+  },
+  {
+    id: "0005",
+    name: "summarize-xlarge",
+  },
+  {
+    id: "0006",
+    name: "summarize-medium",
   },
 ];
