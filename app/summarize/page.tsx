@@ -184,7 +184,7 @@ const SummarizePage = () => {
             </form>
           </Form>
         </div>
-        <div className="w-1/2 mt-4 space-y-4">
+        <div className="w-5/6 mt-4 space-y-4 md:w-1/2">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-8 ml-10 rounded-lg bg-muted">
               <Loader description="Cohere is summarizing your input" />
@@ -198,7 +198,7 @@ const SummarizePage = () => {
               <div
                 key={summary.id}
                 className={cn(
-                  "ml-10 p-8 w-full flex items-start gap-x-8 rounded-lg",
+                  "md:ml-10 p-8 w-full flex items-start gap-x-8 rounded-lg",
                   "dark:bg-zinc-900 border border-black/10"
                 )}
               >
