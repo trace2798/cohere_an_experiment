@@ -26,6 +26,7 @@ type PromptFormValues = {
   prompt: string;
   model: string;
   num_generations: number;
+  temperature: number;
 };
 
 interface SelectModelProps {

@@ -23,6 +23,7 @@ export async function POST(req: Request) {
         model: body.model,
         num_generations: body.num_generations,
         max_tokens: 1000,
+        temperature: body.temperature,
       },
     };
     console.log(options, "GENERATE");

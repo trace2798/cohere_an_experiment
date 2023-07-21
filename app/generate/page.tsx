@@ -27,11 +27,14 @@ import {
   hoverNumGenerationContent,
   num_generations,
 } from "./data/num_generations";
+import { TemperatureSliderComponent } from "@/components/options/temperature-slider";
+import { hoverTemperatureContent } from "./data/temperature";
 
 type PromptFormValues = {
   prompt: string;
   model: string;
   num_generations: number;
+  temperature: number;
 };
 
 type Generation = {
@@ -54,6 +57,7 @@ const GeneratePage = () => {
       prompt: "",
       model: "command",
       num_generations: 1,
+      temperature: 0.5
     },
   });
 
@@ -137,6 +141,10 @@ const GeneratePage = () => {
                   generation={num_generations}
                   setValue={form.setValue}
                   hoverContentProps={hoverNumGenerationContent}
+                />
+                <TemperatureSliderComponent
+                  setValue={form.setValue}
+                  hoverContentProps={hoverTemperatureContent}
                 />
               </div>
 

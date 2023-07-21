@@ -64,6 +64,7 @@ const SummarizePage = () => {
       format: "paragraph",
       model: "summarize-xlarge",
       extractiveness: "low",
+      temperature: 0.5,
     },
   });
 
