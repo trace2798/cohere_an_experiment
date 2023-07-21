@@ -1,3 +1,5 @@
+import { Model } from "@/typing";
+
 export const hoverModelContent = {
   type: "string",
   defaultValue: "command",
@@ -12,10 +14,6 @@ export const hoverModelContent = {
   note: "Custom models can also be supplied with their full ID.",
 };
 
-export interface Model {
-  id: string;
-  name: string;
-}
 
 export const models: Model[] = [
   {

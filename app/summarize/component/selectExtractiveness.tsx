@@ -37,7 +37,7 @@ export function SelectExtractiveness({ setValue }: SelectModelProps) {
 
   return (
     <>
-      <div className="flex justify-between p-3 m-3 border rounded-lg w-fill border-slate-800">
+      <div className="flex justify-between p-3 m-3 border rounded-lg w-fill dark:border-slate-800">
         <div className="flex items-center justify-center w-full">
           <HoverCard openDelay={100}>
             <HoverCardTrigger asChild>

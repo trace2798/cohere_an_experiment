@@ -18,17 +18,19 @@ import {
 import { useState } from "react";
 
 import { UseFormSetValue } from "react-hook-form";
-import { Model } from "../data/models";
+
 import { HoverContentComponent } from "@/components/HoverContentCompoent";
+import { Generations } from "@/typing";
 
 type PromptFormValues = {
   prompt: string;
   model: string;
+  num_generations: number;
 };
 
 interface SelectModelProps {
   setValue: UseFormSetValue<PromptFormValues>;
-  models: Model[]; // Add this prop to receive the selected model
+  generation: Generations[]; // Add this prop to receive the selected model
   hoverContentProps: {
     type: string;
     defaultValue: string;
@@ -38,32 +40,32 @@ interface SelectModelProps {
   };
 }
 
-export function SelectModel({
-  models,
+export function SelectNumberOfGeneration({
+  generation,
   setValue,
   hoverContentProps,
 }: SelectModelProps) {
   const handleFormatChange = (value: string) => {
     setSelectedModel(value);
-    setValue("model", value); // Update the format property in the form data
+    setValue("num_generations", parseInt(value, 10)); // Update the format property in the form data
   };
 
-  const [selectedModel, setSelectedModel] = useState("command");
+  const [selectedModel, setSelectedModel] = useState("1");
 
   return (
     <>
-      <div className="flex justify-between p-3 m-3 border rounded-lg w-fill border-slate-800">
+      <div className="flex justify-between p-3 m-3 border rounded-lg w-fill dark:border-slate-800">
         <div className="flex items-center justify-center w-full">
           <HoverCard openDelay={200}>
             <HoverCardTrigger asChild>
-              <Label htmlFor="temperature">Model</Label>
+              <Label htmlFor="temperature">num_generation</Label>
             </HoverCardTrigger>
             <HoverCardContent
               align="start"
               className="w-[260px] text-sm"
               side="left"
             >
-               <HoverContentComponent {...hoverContentProps} />
+              <HoverContentComponent {...hoverContentProps} />
             </HoverCardContent>
           </HoverCard>
         </div>
@@ -75,9 +77,9 @@ export function SelectModel({
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Select a Model</SelectLabel>
-                {models.map((model) => (
-                  <SelectItem key={model.id} value={model.name}>
-                    {model.name}
+                {generation.map((num) => (
+                  <SelectItem key={num.id} value={num.numberOfGenerations.toString()}>
+                    {num.numberOfGenerations}
                   </SelectItem>
                 ))}
               </SelectGroup>

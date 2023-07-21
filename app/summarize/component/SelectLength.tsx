@@ -46,7 +46,7 @@ export function SelectLength({ setValue }: SelectLengthProps) {
 
   return (
     <>
-      <div className="flex justify-between p-3 m-3 border rounded-lg w-fill border-slate-800">
+      <div className="flex justify-between p-3 m-3 border rounded-lg w-fill dark:dark:border-slate-800">
         <div className="flex items-center justify-center w-full">
           <HoverCard openDelay={200}>
             <HoverCardTrigger asChild>

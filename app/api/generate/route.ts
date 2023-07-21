@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   try {
     console.log(req.body, "BODY BODY BODY");
     const body = await req.json();
-    const { prompt, model } = body; // Assuming the prompt is sent from the client
+    // const { prompt, model, num_generations } = body; // Assuming the prompt is sent from the client
     const cohereApiUrl = "https://api.cohere.ai/v1/generate";
     const cohereApiKey = process.env.COHERE_API_KEY; // Use your environment variable here
 
@@ -18,7 +18,12 @@ export async function POST(req: Request) {
         "content-type": "application/json",
         authorization: cohereApiKey,
       },
-      data: { prompt, model, num_generations: 1, max_tokens: 1000 },
+      data: {
+        prompt: body.prompt,
+        model: body.model,
+        num_generations: body.num_generations,
+        max_tokens: 1000,
+      },
     };
     console.log(options, "GENERATE");
     const response = await axios.request(options);

@@ -20,12 +20,18 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import * as z from "zod";
-import { SelectModel } from "./components/model-selector";
+import { SelectModel } from "../../components/options/model-selector";
 import { hoverModelContent, models } from "./data/models";
+import { SelectNumberOfGeneration } from "@/components/options/num-selector";
+import {
+  hoverNumGenerationContent,
+  num_generations,
+} from "./data/num_generations";
 
 type PromptFormValues = {
   prompt: string;
   model: string;
+  num_generations: number;
 };
 
 type Generation = {
@@ -47,6 +53,7 @@ const GeneratePage = () => {
     defaultValues: {
       prompt: "",
       model: "command",
+      num_generations: 1,
     },
   });
 
@@ -107,9 +114,9 @@ const GeneratePage = () => {
                   <FormItem className="col-span-12 lg:col-span-10">
                     <FormControl className="p-0 m-0">
                       <Input
-                        className="pl-3 text-white border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-slate-900"
+                        className="pl-3 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent "
                         disabled={isLoading}
-                        placeholder="Enter a prompt to generate answer?"
+                        placeholder="Enter a prompt to generate answer"
                         {...field}
                       />
                     </FormControl>
@@ -125,6 +132,11 @@ const GeneratePage = () => {
                   models={models}
                   setValue={form.setValue}
                   hoverContentProps={hoverModelContent}
+                />
+                <SelectNumberOfGeneration
+                  generation={num_generations}
+                  setValue={form.setValue}
+                  hoverContentProps={hoverNumGenerationContent}
                 />
               </div>
 
@@ -154,12 +166,17 @@ const GeneratePage = () => {
                 key={message.prompt}
                 className={cn(
                   "ml-10 p-8 w-full flex items-start gap-x-8 rounded-lg",
-                  "dark:bg-zinc-900 border border-black/10"
+                  "dark:bg-zinc-900 border border-black/10",
+                  message.generations.length > 1 ? "flex-col" : "flex-row"
                 )}
               >
                 {message.generations?.map((generation) => (
                   <p key={generation.id} className="text-sm">
                     {generation.text}
+                    {generation !==
+                      message.generations[message.generations.length - 1] && (
+                      <hr className="my-2" />
+                    )}
                   </p>
                 ))}
               </div>
