@@ -72,7 +72,7 @@ const SummarizePage = () => {
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      // Validating the form data with zob
+      // Validating the form data with zod
       const validFormData = promptFormValuesSchema.parse(values);
       const requestData = { ...validFormData };
       const response = await axios.post("/api/summarize", requestData);

@@ -17,11 +17,11 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
 import * as z from "zod";
 import { hoverModelContent, models } from "./data/models";
 import { SelectModel } from "./components/model-select";
 import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type PromptFormValues = {
   text: string;
@@ -33,7 +33,9 @@ type TokenizeResponse = {
   token_strings: string[];
 };
 
-const textSchema = z.string().min(1).max(65536);
+// const textSchema = z.string().min(2, {
+//   message: "Username must be at least 2 characters.",
+// });
 
 const TokenizePage = () => {
   const { toast } = useToast();
@@ -41,6 +43,7 @@ const TokenizePage = () => {
   const [characterCount, setCharacterCount] = useState<number>(0);
 
   const form = useForm<PromptFormValues>({
+    // resolver: zodResolver(textSchema),
     defaultValues: {
       text: "",
       model: "command",
@@ -56,27 +59,23 @@ const TokenizePage = () => {
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      const validatedValues = textSchema.parse(values);
-      console.log(validatedValues, "VALUES VALUES");
-      const response = await axios.post("/api/tokenize", validatedValues); // Call the server-side API route
+      //   const validatedValues = textSchema.parse(values);
+      //   console.log(validatedValues, "VALUES VALUES");
+      const response = await axios.post("/api/tokenize", values); // Call the server-side API route
       setMessages((current) => [...current, response.data]);
+      toast({
+        title: "Success",
+        description: "Your input has been tokenized",
+        variant: "default",
+      });
       form.reset();
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        // Handle Zod validation error
-        toast({
-          title: "Error",
-          description: "Something wrong with your input",
-          variant: "destructive",
-        });
-      } else {
-        console.error(error);
-        toast({
-          title: "Error!",
-          description: "Request could not be completed.",
-          variant: "destructive",
-        });
-      }
+      console.error(error);
+      toast({
+        title: "Error!",
+        description: "Request could not be completed.",
+        variant: "destructive",
+      });
     }
   };
 
