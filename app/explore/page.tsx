@@ -39,7 +39,7 @@ const cardContentData = [
     title: "Detect Language",
     description:
       "This endpoint identifies which language each of the provided texts is written in.",
-    disable: true,
+    disable: false,
   },
   {
     title: "Summarize",
@@ -54,7 +54,7 @@ const cardContentData = [
     disable: true,
   },
   {
-    title: "GenerateCode",
+    title: "Generate Code",
     description:
       "Using generate end point to generate code.",
     disable: false,

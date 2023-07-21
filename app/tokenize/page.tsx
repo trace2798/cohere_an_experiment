@@ -27,7 +27,7 @@ type PromptFormValues = {
 };
 
 type TokenizeResponse = {
-  tokens: number[];
+  tokens: string[];
   token_strings: string[];
 };
 
