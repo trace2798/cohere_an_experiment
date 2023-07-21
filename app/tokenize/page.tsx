@@ -167,7 +167,9 @@ const TokenizePage = () => {
               <Button
                 className="col-span-12 p-5 w-fit lg:col-span-12"
                 type="submit"
-                disabled={isLoading}
+                disabled={
+                  isLoading || characterCount < 1 || characterCount > 65536
+                }
                 size="icon"
               >
                 Tokenize
