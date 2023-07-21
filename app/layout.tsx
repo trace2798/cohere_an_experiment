@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <main className="flex flex-col justify-center items-center text-center min-h-screen px-[5vw]">
+          <main className="flex flex-col justify-center items-center text-center min-h-screen px-[5vw] pt-10 md:pt-0">
            <Navbar/>
             {children}
           </main>
