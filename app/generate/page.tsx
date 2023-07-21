@@ -20,9 +20,12 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import * as z from "zod";
+import { SelectModel } from "./components/model-selector";
+import { hoverModelContent, models } from "./data/models";
 
 type PromptFormValues = {
   prompt: string;
+  model: string;
 };
 
 type Generation = {
@@ -37,12 +40,13 @@ type CohereApiResponse = {
   generations: Generation[];
 };
 
-const GeneratePage: React.FC = () => {
+const GeneratePage = () => {
   const [messages, setMessages] = useState<CohereApiResponse[]>([]);
 
   const form = useForm<PromptFormValues>({
     defaultValues: {
       prompt: "",
+      model: "command",
     },
   });
 
@@ -59,6 +63,7 @@ const GeneratePage: React.FC = () => {
       toast.error("Something went wrong.");
     }
   };
+
   return (
     <div className="w-full p-5 rounded-lg md:p-10">
       <div className="w-full">
@@ -116,7 +121,11 @@ const GeneratePage: React.FC = () => {
                 description="All set to default. Change to experiment."
               />
               <div className="grid w-full p-2 -mt-10 overflow-hidden xl:gap-2 2xl:grid-cols-2">
-                SelectModel string num_generations integer max_tokens integer
+                <SelectModel
+                  models={models}
+                  setValue={form.setValue}
+                  hoverContentProps={hoverModelContent}
+                />
               </div>
 
               <Button
