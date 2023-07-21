@@ -147,7 +147,7 @@ const SummarizePage = () => {
                   <FormItem className="col-span-12 lg:col-span-10">
                     <FormControl className="p-0 m-0">
                       <Textarea
-                        className="pt-3 pl-3 mb-5 border focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="pt-3 pl-3 border focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
                         placeholder="Enter text to summarize"
                         {...field}

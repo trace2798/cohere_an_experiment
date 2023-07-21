@@ -6,7 +6,7 @@ export const hoverNumGenerationContent = {
   options: ["1", "2", "3", "4", "5"],
   functionality:
     "Denotes the maximum number of generations that will be returned.",
-  note: "N/A",
+  note: "In TypeScript, all numbers are either floating point values or BigIntegers. These floating point numbers get the type number, while BigIntegers get the type bigint.",
 };
 
 export const num_generations: Generations[] = [

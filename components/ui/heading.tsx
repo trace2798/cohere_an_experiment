@@ -1,4 +1,3 @@
-
 interface HeadingProps {
   title: string;
   description: string;
@@ -7,7 +6,7 @@ interface HeadingProps {
 export const Heading = ({ title, description }: HeadingProps) => {
   return (
     <>
-      <div className="flex px-4 mb-8 text-left lg:px-8 gap-x-3">
+      <div className="flex mb-8 text-left  gap-x-3 mt-5">
         <div>
           <h2 className="text-3xl font-bold text-primary">{title}</h2>
           <p className="text-sm text-muted-foreground">{description}</p>
