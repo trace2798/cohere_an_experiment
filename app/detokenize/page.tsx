@@ -59,7 +59,7 @@ const DetokenizePage = () => {
       setText((current) => [...current, response.data]);
       toast({
         title: "Success",
-        description: "Your input has been detected.",
+        description: "Your input has been de-tokened.",
         variant: "default",
       });
       form.reset();
@@ -189,7 +189,7 @@ const DetokenizePage = () => {
                 <div
                   key={tIndex} // Use tIndex or another unique identifier as the key
                   className={cn(
-                    "md:ml-10 p-8 w-full flex items-start gap-x-8 rounded-lg",
+                    "md:ml-10 p-8 w-full flex items-start justify-center gap-x-8 rounded-lg",
                     "dark:bg-zinc-900 border border-black/10"
                   )}
                 >
