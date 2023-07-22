@@ -43,7 +43,7 @@ const Documents: FC<DocumentsProps> = ({ documents, setDocuments }) => {
     <>
       <HoverCard openDelay={200}>
         <HoverCardTrigger asChild>
-          <Label htmlFor="document" className="pl-3 text-left w-fit">
+          <Label htmlFor="document" className="pl-3 text-left w-fit mt-5">
             documents (required)&nbsp;[type: array]
           </Label>
         </HoverCardTrigger>
