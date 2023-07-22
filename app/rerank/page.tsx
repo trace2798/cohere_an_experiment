@@ -33,12 +33,22 @@ type PromptFormValues = {
   return_documents: boolean;
 };
 
+type ReRankDocument = {
+  text: string;
+};
+
 type ReRankResponse = {
   id: string;
   results: Array<{
+    document: ReRankDocument;
     index: number;
     relevance_score: number;
   }>;
+  meta: {
+    api_version: {
+      version: string;
+    };
+  };
 };
 
 const ReRankPage = () => {
@@ -190,13 +200,37 @@ const ReRankPage = () => {
                     key={itemIndex}
                     className={cn(
                       "md:ml-5 p-2 w-full flex items-start justify-center gap-x-8 rounded-lg",
-                      "dark:bg-zinc-900 border border-black/10"
+                      "dark:bg-zinc-900 border border-black/10 my-2"
                     )}
                   >
-                    <p className="text-base">
-                      Index: {item.index}, Relevance Score:{" "}
-                      {item.relevance_score}
-                    </p>
+                    <div className="flex-col text-left">
+                      {item.document && (
+                        <p className="text-sm">
+                          <span className="underline text-indigo-400 text-popover-foreground">
+                            Document:
+                          </span>{" "}
+                          <span className="text-base">
+                            {" "}
+                            {item.document.text}
+                          </span>
+                        </p>
+                      )}
+                      <p className="text-sm">
+                        <span className="underline text-indigo-400 text-popover-foreground">
+                          Relevance Score:
+                        </span>{" "}
+                        <span className="text-base">
+                          {item.relevance_score}
+                        </span>
+                      </p>
+                      <p className="text-sm">
+                        <span className="underline text-indigo-400 text-popover-foreground">
+                          {" "}
+                          Index:
+                        </span>{" "}
+                        <span className="text-base">{item.index}</span>
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
