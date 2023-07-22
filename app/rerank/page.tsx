@@ -20,6 +20,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { hoverModelContent, models } from "./components/model";
 import { SelectModel } from "./components/model-selector";
+import Documents from "./components/documents";
 
 type PromptFormValues = {
   query: string;
@@ -36,13 +37,15 @@ type DetokenizeResponse = {
 const ReRankPage = () => {
   const { toast } = useToast();
   const [text, setText] = useState<DetokenizeResponse[]>([]);
-  const [tokens, setTokens] = useState<number[]>([]);
+  //   const [documents, setDocuments] = useState<(object | string)[]>([]);
+  const [documents, setDocuments] = useState<(object | string)[]>([]);
 
   const form = useForm<PromptFormValues>({
     // resolver: zodResolver(textSchema),
     defaultValues: {
       query: "",
-      model: "command",
+      model: "rerank-english-v2.0",
+      documents: [],
     },
   });
 
@@ -62,7 +65,8 @@ const ReRankPage = () => {
         variant: "default",
       });
       form.reset();
-      setTokens([]);
+      //   setDocuments([]);
+      setDocuments([]);
     } catch (error) {
       console.error(error);
       toast({
@@ -73,9 +77,9 @@ const ReRankPage = () => {
     }
   };
 
-  const addInputField = () => {
-    setTokens((currentTexts) => [...currentTexts, 0]);
-  };
+  //   const addInputField = () => {
+  //     setDocuments((currentTexts) => [...currentTexts, ""]);
+  //   };
   return (
     <div className="w-full p-5 rounded-lg md:p-10">
       <div className="w-full">
@@ -95,7 +99,7 @@ const ReRankPage = () => {
             >
               <HoverCard openDelay={200}>
                 <HoverCardTrigger asChild>
-                  <Label htmlFor="text" className="pl-3 text-left w-fit">
+                  <Label htmlFor="query" className="pl-3 text-left w-fit">
                     query (required)&nbsp;[type: string]
                   </Label>
                 </HoverCardTrigger>
@@ -113,35 +117,23 @@ const ReRankPage = () => {
                   />
                 </HoverCardContent>
               </HoverCard>
-              {tokens.map((token, index) => (
-                <FormField
-                  key={index}
-                  name={`tokens[${index}]`}
-                  render={({ field }) => (
-                    <FormItem className="col-span-12 lg:col-span-10">
-                      <FormControl className="p-0 m-0">
-                        <Input
-                          type="number"
-                          pattern="^[1-9]\d*$"
-                          className="pl-3 border border-primary-foreground focus-visible:ring-0 focus-visible:ring-transparent "
-                          disabled={isLoading}
-                          placeholder="Enter token to to be detokenized"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              ))}
-              <Button
-                className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
-                type="button"
-                onClick={addInputField}
-                size="icon"
-                variant="ghost"
-              >
-                Add token
-              </Button>
+              <FormField
+                name="query"
+                render={({ field }) => (
+                  <FormItem className="col-span-12 lg:col-span-10">
+                    <FormControl className="p-0 m-0">
+                      <Input
+                        className="pl-3 border border-primary-foreground focus-visible:ring-0 focus-visible:ring-transparent "
+                        disabled={isLoading}
+                        placeholder="Enter the search query"
+                        {...field}
+                        required
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <Documents documents={documents} setDocuments={setDocuments} />
               <Heading
                 title="Available option"
                 description="All set to default. Change to experiment."
@@ -157,10 +149,10 @@ const ReRankPage = () => {
                 <Button
                   className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
                   type="submit"
-                  disabled={isLoading || tokens.length < 1}
+                  disabled={isLoading}
                   size="icon"
                 >
-                  DeTokenize
+                  ReRank
                 </Button>
               </div>
             </form>
