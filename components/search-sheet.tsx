@@ -52,6 +52,7 @@ export function SearchSheet() {
   const [data, setData] = useState<{
     routes: { route: string; description: string }[];
   }>({ routes: [] });
+  const [descriptionToRouteMap, setDescriptionToRouteMap] = useState<Record<string, string>>({});
 
   const form = useForm<PromptFormValues>({
     // resolver: zodResolver(textSchema),
@@ -68,14 +69,27 @@ export function SearchSheet() {
     // Fetch the data from data.json when the component mounts
     axios.get("/data.json").then((response) => {
       setData(response.data);
+
+       // Create a mapping of descriptions to routes
+    const map: Record<string, string> = {};
+    response.data.routes.forEach((route: any) => {
+      map[route.description] = route.route;
+    });
+    setDescriptionToRouteMap(map);
+
     });
   }, []);
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      const documentsArray = data.routes.map((item) => item.route);
-
+      const documentsArray = data.routes.map((item) => item.description);
       // Set the documents array in the form values
+      // const query = values.query.toLowerCase().trim();
+      // const filteredRoutes = data.routes.filter((item) =>
+      //   item.description.toLowerCase().includes(query)
+      // );
+      // const documentsArray = filteredRoutes.map((item) => item.route);
+
       values.documents = documentsArray;
       console.log(values, "TOKEN ARRAY");
       const response = await axios.post("/api/search", {
@@ -149,7 +163,7 @@ export function SearchSheet() {
           </div>
         </div>
         <SheetFooter></SheetFooter>
-        <div className="w-1/2 space-y-4 md:mt-0">
+        <div className="w-full space-y-4 md:mt-0">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
               <Loader description="Cohere is tokenizing your text." />
@@ -178,13 +192,15 @@ export function SearchSheet() {
                     <div className="flex-col text-left">
                       {item.document && (
                         <p className="text-sm">
-                          <span className="underline text-indigo-600 ">
-                            Document:
-                          </span>{" "}
-                          <span className="text-base">
-                            {" "}
-                            {item.document.text}
-                          </span>
+                          <a href={descriptionToRouteMap[item.document.text]}>
+                            <span className="underline text-indigo-600 ">
+                              
+                            </span>{" "}
+                            <span className="text-base line-clamp-2">
+                              {" "}
+                              {item.document.text}
+                            </span>
+                          </a>
                         </p>
                       )}
                       <p className="text-sm">
@@ -195,13 +211,13 @@ export function SearchSheet() {
                           {item.relevance_score}
                         </span>
                       </p>
-                      <p className="text-sm">
+                      {/* <p className="text-sm">
                         <span className="underline text-indigo-400 ">
                           {" "}
                           Index:
                         </span>{" "}
                         <span className="text-base">{item.index}</span>
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 ))}

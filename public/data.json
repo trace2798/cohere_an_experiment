@@ -2,7 +2,7 @@
   "routes": [
     {
       "route": "http://localhost:3000/explore",
-      "description": "Explore the website's content and features."
+      "description": "Explore the website's content, this page has links to all the routes available in this application."
     },
     {
       "route": "http://localhost:3000",
@@ -10,31 +10,39 @@
     },
     {
       "route": "http://localhost:3000/detokenize",
-      "description": "Detokenize text using the API."
+      "description": "Detokenize text using the cohere API. This endpoint takes tokens using byte-pair encoding and returns their text representation."
     },
     {
       "route": "http://localhost:3000/generate",
-      "description": "Generate text using the API."
+      "description": "Generate text using the cohere generate API. This endpoint generates realistic text conditioned on a given input."
     },
     {
       "route": "http://localhost:3000/detectlanguage",
-      "description": "Detect the language of text using the API."
+      "description": "Detect the language of text using cohere detect API. This endpoint identifies which language each of the provided texts is written in."
     },
     {
       "route": "http://localhost:3000/rerank",
-      "description": "Rerank a list of documents using the API."
+      "description": "Rerank a list of documents using the cohere rerank API. This endpoint takes in a query and a list of texts and produces an ordered array with each text assigned a relevance score."
     },
     {
       "route": "http://localhost:3000/generatecode",
-      "description": "Generate code using the API."
+      "description": "Generate code using the cohere generate API. Using generate end point to generate code."
     },
     {
       "route": "http://localhost:3000/tokenize",
-      "description": "Tokenize text using the API."
+      "description": "Tokenize text using the cohere tokenize API. This endpoint splits input text into smaller units called tokens using byte-pair encoding (BPE)."
     },
     {
       "route": "http://localhost:3000/summarize",
-      "description": "Summarize text using the API."
+      "description": "Summarize text using the cohere summarize API. This endpoint generates a summary in English for a given text."
+    },
+    {
+      "route": "http://localhost:3000/embed",
+      "description": "This endpoint returns text embeddings. An embedding is a list of floating point numbers that captures semantic information about the text that it represents."
+    },
+    {
+      "route": "http://localhost:3000/classify",
+      "description": "This endpoint makes a prediction about which label fits the specified text inputs best."
     }
   ]
 }
