@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.1",
     "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-hover-card": "^1.0.6",
     "@radix-ui/react-label": "^2.0.2",
@@ -31,6 +33,7 @@
     "eslint-config-next": "13.4.10",
     "lucide-react": "^0.261.0",
     "next": "13.4.10",
+    "next-sitemap": "^4.1.8",
     "next-themes": "^0.2.1",
     "postcss": "8.4.26",
     "react": "18.2.0",

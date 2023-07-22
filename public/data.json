@@ -1,0 +1,40 @@
+{
+  "routes": [
+    {
+      "route": "http://localhost:3000/explore",
+      "description": "Explore the website's content and features."
+    },
+    {
+      "route": "http://localhost:3000",
+      "description": "Home page of the website."
+    },
+    {
+      "route": "http://localhost:3000/detokenize",
+      "description": "Detokenize text using the API."
+    },
+    {
+      "route": "http://localhost:3000/generate",
+      "description": "Generate text using the API."
+    },
+    {
+      "route": "http://localhost:3000/detectlanguage",
+      "description": "Detect the language of text using the API."
+    },
+    {
+      "route": "http://localhost:3000/rerank",
+      "description": "Rerank a list of documents using the API."
+    },
+    {
+      "route": "http://localhost:3000/generatecode",
+      "description": "Generate code using the API."
+    },
+    {
+      "route": "http://localhost:3000/tokenize",
+      "description": "Tokenize text using the API."
+    },
+    {
+      "route": "http://localhost:3000/summarize",
+      "description": "Summarize text using the API."
+    }
+  ]
+}

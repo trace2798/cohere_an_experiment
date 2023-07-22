@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import Image from "next/image";
+import { SearchSheet } from "./search-sheet";
 
 const Navbar = async () => {
   return (
@@ -22,6 +23,7 @@ const Navbar = async () => {
         <Link href="/explore">Explore</Link>
         <div>
           <ModeToggle />
+          <SearchSheet/>
         </div>
       </div>
     </div>
