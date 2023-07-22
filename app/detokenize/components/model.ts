@@ -12,7 +12,7 @@ export const hoverModelContent = {
     "summarize-medium",
   ],
   functionality:
-    "The name of the model to tokenize with. This will ensure that the tokenization is done by the tokenizer used by that model.",
+    "The name of the model to detokenize with. This will ensure that the detokenization is done by the tokenizer used by that model.",
   note: "An optional parameter to provide the model name",
 };
 

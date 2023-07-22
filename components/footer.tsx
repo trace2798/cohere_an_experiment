@@ -1,8 +1,5 @@
-import * as React from "react";
 import { cn } from "@/lib/utils";
-import { ModeToggle } from "@/components/mode-toggle";
-import Link from "next/link";
-import Image from "next/image";
+import * as React from "react";
 
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
