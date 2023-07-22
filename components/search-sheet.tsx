@@ -52,7 +52,9 @@ export function SearchSheet() {
   const [data, setData] = useState<{
     routes: { route: string; description: string }[];
   }>({ routes: [] });
-  const [descriptionToRouteMap, setDescriptionToRouteMap] = useState<Record<string, string>>({});
+  const [descriptionToRouteMap, setDescriptionToRouteMap] = useState<
+    Record<string, string>
+  >({});
 
   const form = useForm<PromptFormValues>({
     // resolver: zodResolver(textSchema),
@@ -70,20 +72,19 @@ export function SearchSheet() {
     axios.get("/data.json").then((response) => {
       setData(response.data);
 
-       // Create a mapping of descriptions to routes
-    const map: Record<string, string> = {};
-    response.data.routes.forEach((route: any) => {
-      map[route.description] = route.route;
-    });
-    setDescriptionToRouteMap(map);
-
+      // Create a mapping of descriptions to routes
+      const map: Record<string, string> = {};
+      response.data.routes.forEach((route: any) => {
+        map[route.description] = route.route;
+      });
+      setDescriptionToRouteMap(map);
     });
   }, []);
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
       const documentsArray = data.routes.map((item) => item.description);
-      // Set the documents array in the form values
+
       // const query = values.query.toLowerCase().trim();
       // const filteredRoutes = data.routes.filter((item) =>
       //   item.description.toLowerCase().includes(query)
@@ -99,7 +100,7 @@ export function SearchSheet() {
       setResults((current) => [...current, response.data]);
       toast({
         title: "Success",
-        description: "Your input has been ReRanked.",
+        description: "Click to visit the page",
         variant: "default",
       });
       form.reset();
@@ -121,13 +122,11 @@ export function SearchSheet() {
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Search Site</SheetTitle>
-          <SheetDescription>Trying to use the ReRank API</SheetDescription>
+          <SheetDescription>Search made possible with Co.ReRank API</SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="flex flex-col items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Query
-            </Label>
+            
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -166,11 +165,11 @@ export function SearchSheet() {
         <div className="w-full space-y-4 md:mt-0">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
-              <Loader description="Cohere is tokenizing your text." />
+              <Loader description="Cohere is searching your query." />
             </div>
           )}
           {results.length === 0 && !isLoading && (
-            <Empty label="Start Detecting Language." />
+            <Empty label="Search the site" />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {results.map((result, resultIndex) => (
@@ -193,9 +192,7 @@ export function SearchSheet() {
                       {item.document && (
                         <p className="text-sm">
                           <a href={descriptionToRouteMap[item.document.text]}>
-                            <span className="underline text-indigo-600 ">
-                              
-                            </span>{" "}
+                            <span className="underline text-indigo-600 "></span>{" "}
                             <span className="text-base line-clamp-2">
                               {" "}
                               {item.document.text}
@@ -211,13 +208,6 @@ export function SearchSheet() {
                           {item.relevance_score}
                         </span>
                       </p>
-                      {/* <p className="text-sm">
-                        <span className="underline text-indigo-400 ">
-                          {" "}
-                          Index:
-                        </span>{" "}
-                        <span className="text-base">{item.index}</span>
-                      </p> */}
                     </div>
                   </div>
                 ))}

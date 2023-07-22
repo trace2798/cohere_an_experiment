@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         top_n: body.values.top_n,
       },
     };
-    console.log(options, "ReRANK");
+    console.log(options, "SEARCH");
     const response = await axios.request(options);
     const responseData = response.data;
     return NextResponse.json(responseData);
