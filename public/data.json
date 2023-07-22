@@ -1,47 +1,47 @@
 {
   "routes": [
     {
-      "route": "http://localhost:3000/explore",
+      "route": "https://cohere-playground.vercel.app/explore",
       "description": "Explore the website's content, this page has links to all the routes available in this application."
     },
     {
-      "route": "http://localhost:3000",
+      "route": "https://cohere-playground.vercel.app",
       "description": "Home page of the website."
     },
     {
-      "route": "http://localhost:3000/detokenize",
+      "route": "https://cohere-playground.vercel.app/detokenize",
       "description": "Detokenize text using the cohere API. This endpoint takes tokens using byte-pair encoding and returns their text representation."
     },
     {
-      "route": "http://localhost:3000/generate",
+      "route": "https://cohere-playground.vercel.app/generate",
       "description": "Generate text using the cohere generate API. This endpoint generates realistic text conditioned on a given input."
     },
     {
-      "route": "http://localhost:3000/detectlanguage",
+      "route": "https://cohere-playground.vercel.app/detectlanguage",
       "description": "Detect the language of text using cohere detect API. This endpoint identifies which language each of the provided texts is written in."
     },
     {
-      "route": "http://localhost:3000/rerank",
+      "route": "https://cohere-playground.vercel.app/rerank",
       "description": "Rerank a list of documents using the cohere rerank API. This endpoint takes in a query and a list of texts and produces an ordered array with each text assigned a relevance score."
     },
     {
-      "route": "http://localhost:3000/generatecode",
+      "route": "https://cohere-playground.vercel.app/generatecode",
       "description": "Generate code using the cohere generate API. Using generate end point to generate code."
     },
     {
-      "route": "http://localhost:3000/tokenize",
+      "route": "https://cohere-playground.vercel.app/tokenize",
       "description": "Tokenize text using the cohere tokenize API. This endpoint splits input text into smaller units called tokens using byte-pair encoding (BPE)."
     },
     {
-      "route": "http://localhost:3000/summarize",
+      "route": "https://cohere-playground.vercel.app/summarize",
       "description": "Summarize text using the cohere summarize API. This endpoint generates a summary in English for a given text."
     },
     {
-      "route": "http://localhost:3000/embed",
+      "route": "https://cohere-playground.vercel.app/embed",
       "description": "This endpoint returns text embeddings. An embedding is a list of floating point numbers that captures semantic information about the text that it represents."
     },
     {
-      "route": "http://localhost:3000/classify",
+      "route": "https://cohere-playground.vercel.app/classify",
       "description": "This endpoint makes a prediction about which label fits the specified text inputs best."
     }
   ]

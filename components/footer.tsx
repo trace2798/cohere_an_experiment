@@ -39,7 +39,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
           </p>
           <div className="text-xs">
             This is an unofficial Playground for Cohere. I neither work for
-            Cohere neither I am affiliated with the company. I was just having
+            Cohere nor I am affiliated with the company. I was just having
             some problem with their official playground so I created this one.
           </div>
         </div>
