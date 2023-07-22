@@ -31,7 +31,7 @@ type PromptFormValues = {
   truncate: string;
 };
 
-interface SelectModelProps {
+interface SelectNumberOfGenerationProps {
   setValue: UseFormSetValue<PromptFormValues>;
   generation: Generations[]; // Add this prop to receive the selected model
   hoverContentProps: {
@@ -47,13 +47,13 @@ export function SelectNumberOfGeneration({
   generation,
   setValue,
   hoverContentProps,
-}: SelectModelProps) {
+}: SelectNumberOfGenerationProps) {
   const handleFormatChange = (value: string) => {
-    setSelectedModel(value);
+    setSelectNumberOfGeneration(value);
     setValue("num_generations", parseInt(value, 10)); // Update the format property in the form data
   };
 
-  const [selectedModel, setSelectedModel] = useState("1");
+  const [selectNumberOfGeneration, setSelectNumberOfGeneration] = useState("1");
 
   return (
     <>
@@ -61,7 +61,7 @@ export function SelectNumberOfGeneration({
         <div className="flex items-center justify-center w-full">
           <HoverCard openDelay={200}>
             <HoverCardTrigger asChild>
-              <Label htmlFor="temperature">num_generation</Label>
+              <Label htmlFor="num_generation">num_generation</Label>
             </HoverCardTrigger>
             <HoverCardContent
               align="start"
@@ -73,13 +73,13 @@ export function SelectNumberOfGeneration({
           </HoverCard>
         </div>
         <div>
-          <Select value={selectedModel} onValueChange={handleFormatChange}>
+          <Select value={selectNumberOfGeneration} onValueChange={handleFormatChange}>
             <SelectTrigger className="w-fit md:w-[180px]">
-              <SelectValue>{selectedModel}</SelectValue>
+              <SelectValue>{selectNumberOfGeneration}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Select a Model</SelectLabel>
+                <SelectLabel>Number of Generation</SelectLabel>
                 {generation.map((num) => (
                   <SelectItem key={num.id} value={num.numberOfGenerations.toString()}>
                     {num.numberOfGenerations}

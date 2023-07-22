@@ -21,6 +21,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { hoverModelContent, models } from "./components/model";
 import { SelectModel } from "./components/model-selector";
 import Documents from "./components/documents";
+// import { SelectReturnDocument } from "./components/return-document-selector";
+import { hoverReturnDocumentContent } from "./components/return_document";
+import { Switch } from "@/components/ui/switch";
 
 type PromptFormValues = {
   query: string;
@@ -37,7 +40,6 @@ type DetokenizeResponse = {
 const ReRankPage = () => {
   const { toast } = useToast();
   const [text, setText] = useState<DetokenizeResponse[]>([]);
-  //   const [documents, setDocuments] = useState<(object | string)[]>([]);
   const [documents, setDocuments] = useState<(object | string)[]>([]);
 
   const form = useForm<PromptFormValues>({
@@ -46,6 +48,7 @@ const ReRankPage = () => {
       query: "",
       model: "rerank-english-v2.0",
       documents: [],
+      return_documents: true,
     },
   });
 
@@ -65,7 +68,6 @@ const ReRankPage = () => {
         variant: "default",
       });
       form.reset();
-      //   setDocuments([]);
       setDocuments([]);
     } catch (error) {
       console.error(error);
@@ -77,9 +79,6 @@ const ReRankPage = () => {
     }
   };
 
-  //   const addInputField = () => {
-  //     setDocuments((currentTexts) => [...currentTexts, ""]);
-  //   };
   return (
     <div className="w-full p-5 rounded-lg md:p-10">
       <div className="w-full">
@@ -144,6 +143,12 @@ const ReRankPage = () => {
                   setValue={form.setValue}
                   hoverContentProps={hoverModelContent}
                 />
+                {/* <SelectReturnDocument
+                  return_documents={form.getValues("return_documents")}
+                  setValue={form.setValue}
+                  hoverContentProps={hoverReturnDocumentContent}
+                /> */}
+                <Switch id="return_documents"/>
               </div>
               <div className="flex flex-col justify-between xl:justify-around md:flex-row">
                 <Button
