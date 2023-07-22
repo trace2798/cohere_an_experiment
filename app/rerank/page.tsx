@@ -19,12 +19,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Documents from "./components/documents";
-import { hoverModelContent, models } from "./data/model";
 import { SelectModel } from "./components/model-selector";
+import { hoverModelContent, models } from "./data/model";
 // import { SelectReturnDocument } from "./components/return-document-selector";
 import { ReturnDocument } from "./components/return-document-selector";
-import { hoverReturnDocumentContent } from "./data/return_document";
 import TopReturn from "./components/top-return";
+import { hoverReturnDocumentContent } from "./data/return_document";
 import { hoverTopNContent } from "./data/top_n";
 
 type PromptFormValues = {

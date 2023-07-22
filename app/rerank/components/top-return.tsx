@@ -64,9 +64,6 @@ const TopReturn = ({ top_n, setValue, hoverContentProps }: TopReturnProps) => {
           />
         </div>
       </div>
-      <div>
-        <label htmlFor="top_n">Top N:</label>
-      </div>
     </>
   );
 };
