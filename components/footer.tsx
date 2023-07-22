@@ -7,7 +7,7 @@ import Image from "next/image";
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
     <footer className={cn(className)}>
-      <div className="fixed bottom-0 inset-x-0 h-fit dark:bg-inherit z-[10] py-2">
+      <div className="sticky bottom-0 inset-x-0 h-fit dark:bg-inherit z-[10] py-2">
         <div className="container flex flex-col items-center justify-between h-fit">
           {/* logo */}
 

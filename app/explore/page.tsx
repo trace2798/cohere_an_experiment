@@ -42,7 +42,7 @@ const cardContentData = [
     title: "Detokenize",
     description:
       "This endpoint takes tokens using byte-pair encoding and returns their text representation. ",
-    disable: true,
+    disable: false,
   },
   {
     title: "Detect Language",
