@@ -60,7 +60,7 @@ const cardContentData = [
     title: "Rerank",
     description:
       "This endpoint takes in a query and a list of texts and produces an ordered array with each text assigned a relevance score.",
-    disable: true,
+    disable: false,
   },
   {
     title: "Generate Code",

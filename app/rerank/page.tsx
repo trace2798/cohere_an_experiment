@@ -22,15 +22,18 @@ import { hoverModelContent, models } from "./components/model";
 import { SelectModel } from "./components/model-selector";
 
 type PromptFormValues = {
-  tokens: number[];
+  query: string;
   model: string;
+  documents: (object | string)[];
+  top_n: number;
+  return_documents: boolean;
 };
 
 type DetokenizeResponse = {
   text: string;
 };
 
-const DetokenizePage = () => {
+const ReRankPage = () => {
   const { toast } = useToast();
   const [text, setText] = useState<DetokenizeResponse[]>([]);
   const [tokens, setTokens] = useState<number[]>([]);
@@ -38,7 +41,7 @@ const DetokenizePage = () => {
   const form = useForm<PromptFormValues>({
     // resolver: zodResolver(textSchema),
     defaultValues: {
-      tokens: [],
+      query: "",
       model: "command",
     },
   });
@@ -47,13 +50,9 @@ const DetokenizePage = () => {
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      //   const tokensArray = values.tokens.map((token) => parseInt(token, 10));
-      const tokensArray = values.tokens.map((token) => Number(token));
-
-      console.log(tokensArray, "TOKEN ARRAY");
-      const response = await axios.post("/api/detokenize", {
-        ...values,
-        tokens: tokensArray, // Use the converted tokens array
+      console.log(values, "TOKEN ARRAY");
+      const response = await axios.post("/api/rerank", {
+        values, // Use the converted tokens array
       });
 
       setText((current) => [...current, response.data]);
@@ -81,10 +80,10 @@ const DetokenizePage = () => {
     <div className="w-full p-5 rounded-lg md:p-10">
       <div className="w-full">
         <HeadingApi
-          title="Detokenize"
-          description="This endpoint takes tokens using byte-pair encoding and returns their text representation."
+          title="Rerank"
+          description="This endpoint takes in a query and a list of texts and produces an ordered array with each text assigned a relevance score."
           method="POST"
-          link="https://api.cohere.ai/v1/detokenize"
+          link="https://api.cohere.ai/v1/rerank"
         />
       </div>
       <div className="flex flex-col w-full overflow-hidden md:flex-row lg:px-8">
@@ -97,7 +96,7 @@ const DetokenizePage = () => {
               <HoverCard openDelay={200}>
                 <HoverCardTrigger asChild>
                   <Label htmlFor="text" className="pl-3 text-left w-fit">
-                    tokens (required)(type: integer)
+                    query (required)&nbsp;[type: string]
                   </Label>
                 </HoverCardTrigger>
                 <HoverCardContent
@@ -106,10 +105,10 @@ const DetokenizePage = () => {
                   side="left"
                 >
                   <HoverContentComponent
-                    type="array of integers"
+                    type="string"
                     defaultValue="REQUIRED"
                     options={["N/A"]}
-                    functionality="The list of tokens to be detokenized."
+                    functionality="The search query."
                     note="N/A"
                   />
                 </HoverCardContent>
@@ -203,4 +202,4 @@ const DetokenizePage = () => {
   );
 };
 
-export default DetokenizePage;
+export default ReRankPage;

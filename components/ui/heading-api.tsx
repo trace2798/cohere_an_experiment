@@ -19,7 +19,9 @@ export const HeadingApi = ({
           <p className="text-sm text-muted-foreground">{description}</p>
           <p className="text-sm text-muted-foreground">
             {" "}
-            <span className="text-sm text-muted-foreground">{method}</span>
+            <span className="px-1 py-[1px] text-sm text-indigo-600 border rounded-lg text-muted-foreground border-slate-600">
+              {method}
+            </span>
             &nbsp;{link}
           </p>
         </div>
