@@ -65,7 +65,7 @@ const Documents: FC<DocumentsProps> = ({ documents, setDocuments }) => {
       {documents.map((token, index) => (
         <FormField
           key={index}
-          name={`tokens[${index}]`}
+          name={`documents[${index}]`}
           render={({ field }) => (
             <FormItem className="col-span-12 lg:col-span-10">
               <FormControl className="p-0 m-0">

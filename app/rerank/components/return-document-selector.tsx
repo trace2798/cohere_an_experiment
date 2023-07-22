@@ -1,66 +1,72 @@
-// import * as React from "react";
-// import { Switch } from "@/components/ui/switch";
-// import {
-//   HoverCard,
-//   HoverCardContent,
-//   HoverCardTrigger,
-// } from "@/components/ui/hover-card";
-// import { Label } from "@/components/ui/label";
-// import { UseFormSetValue } from "react-hook-form";
-// import { HoverContentComponent } from "@/components/HoverContentCompoent";
+import * as React from "react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch"; // Import the Switch component
+import { useState } from "react";
 
-// type PromptFormValues = {
-//   query: string;
-//   model: string;
-//   documents: (object | string)[];
-//   top_n: number;
-//   return_documents: boolean;
-// };
+import { UseFormSetValue } from "react-hook-form";
 
-// interface SelectReturnDocumentProps {
-//   setValue: UseFormSetValue<PromptFormValues>;
-//   return_documents: boolean;
-//   hoverContentProps: {
-//     type: string;
-//     defaultValue: string;
-//     options: string[];
-//     functionality: string;
-//     note: string;
-//   };
-// }
+import { HoverContentComponent } from "@/components/HoverContentCompoent";
 
-// export function SelectReturnDocument({
-//   return_documents,
-//   setValue,
-//   hoverContentProps,
-// }: SelectReturnDocumentProps) {
- 
+type PromptFormValues = {
+  query: string;
+  model: string;
+  documents: (object | string)[];
+  top_n: number;
+  return_documents: boolean;
+};
 
-//   const [selectedModel, setSelectedModel] = React.useState(false);
+interface ReturnDocumentProps {
+  setValue: UseFormSetValue<PromptFormValues>;
+  returnDocuments: boolean; // Add this prop to receive the selected return_documents value
+  hoverContentProps: {
+    type: string;
+    defaultValue: string;
+    options: string[];
+    functionality: string;
+    note: string;
+  };
+}
 
-//   return (
-//     <div className="flex justify-between p-3 m-3 border rounded-lg w-fill dark:border-slate-800">
-//       <div className="flex items-center justify-center w-full">
-//         <HoverCard openDelay={200}>
-//           <HoverCardTrigger asChild>
-//             <Label htmlFor="return_documents">return_documents</Label>
-//           </HoverCardTrigger>
-//           <HoverCardContent
-//             align="start"
-//             className="w-[260px] text-sm"
-//             side="left"
-//           >
-//             <HoverContentComponent {...hoverContentProps} />
-//           </HoverCardContent>
-//         </HoverCard>
-//       </div>
-//       <div>
-//         <Switch
-//           id="return_documents"
-//           checked={return_documents}
-//           onChange={handleReturnDocumentsChange}
-//         />
-//       </div>
-//     </div>
-//   );
-// }
+export function ReturnDocument({
+  setValue,
+  returnDocuments,
+  hoverContentProps,
+}: ReturnDocumentProps) {
+  const handleReturnDocumentChange = (value: boolean) => {
+    setValue("return_documents", value); // Update the return_documents property in the form data
+  };
+
+  return (
+    <>
+      <div className="flex justify-between p-3 m-3 border rounded-lg w-fill dark:border-slate-800">
+        <div className="flex items-center justify-center w-full">
+          <HoverCard openDelay={200}>
+            <HoverCardTrigger asChild>
+              <Label htmlFor="return_documents"> return_documents</Label>
+            </HoverCardTrigger>
+            <HoverCardContent
+              align="start"
+              className="w-[260px] text-sm"
+              side="left"
+            >
+              <HoverContentComponent {...hoverContentProps} />
+            </HoverCardContent>
+          </HoverCard>
+        </div>
+        <div>
+          {/* Use the Switch component here */}
+          <Switch
+            checked={returnDocuments}
+            // @ts-ignore
+            onCheckedChange={handleReturnDocumentChange}
+          />
+        </div>
+      </div>
+    </>
+  );
+}

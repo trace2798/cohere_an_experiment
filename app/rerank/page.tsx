@@ -18,12 +18,12 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import Documents from "./components/documents";
 import { hoverModelContent, models } from "./components/model";
 import { SelectModel } from "./components/model-selector";
-import Documents from "./components/documents";
 // import { SelectReturnDocument } from "./components/return-document-selector";
+import { ReturnDocument } from "./components/return-document-selector";
 import { hoverReturnDocumentContent } from "./components/return_document";
-import { Switch } from "@/components/ui/switch";
 
 type PromptFormValues = {
   query: string;
@@ -33,13 +33,17 @@ type PromptFormValues = {
   return_documents: boolean;
 };
 
-type DetokenizeResponse = {
-  text: string;
+type ReRankResponse = {
+  id: string;
+  results: Array<{
+    index: number;
+    relevance_score: number;
+  }>;
 };
 
 const ReRankPage = () => {
   const { toast } = useToast();
-  const [text, setText] = useState<DetokenizeResponse[]>([]);
+  const [results, setResults] = useState<ReRankResponse[]>([]);
   const [documents, setDocuments] = useState<(object | string)[]>([]);
 
   const form = useForm<PromptFormValues>({
@@ -48,7 +52,7 @@ const ReRankPage = () => {
       query: "",
       model: "rerank-english-v2.0",
       documents: [],
-      return_documents: true,
+      return_documents: false,
     },
   });
 
@@ -61,10 +65,10 @@ const ReRankPage = () => {
         values, // Use the converted tokens array
       });
 
-      setText((current) => [...current, response.data]);
+      setResults((current) => [...current, response.data]);
       toast({
         title: "Success",
-        description: "Your input has been de-tokened.",
+        description: "Your input has been ReRanked.",
         variant: "default",
       });
       form.reset();
@@ -132,6 +136,7 @@ const ReRankPage = () => {
                   </FormItem>
                 )}
               />
+
               <Documents documents={documents} setDocuments={setDocuments} />
               <Heading
                 title="Available option"
@@ -143,12 +148,11 @@ const ReRankPage = () => {
                   setValue={form.setValue}
                   hoverContentProps={hoverModelContent}
                 />
-                {/* <SelectReturnDocument
-                  return_documents={form.getValues("return_documents")}
+                <ReturnDocument
+                  returnDocuments={form.watch("return_documents")}
                   setValue={form.setValue}
                   hoverContentProps={hoverReturnDocumentContent}
-                /> */}
-                <Switch id="return_documents"/>
+                />
               </div>
               <div className="flex flex-col justify-between xl:justify-around md:flex-row">
                 <Button
@@ -169,27 +173,32 @@ const ReRankPage = () => {
               <Loader description="Cohere is tokenizing your text." />
             </div>
           )}
-          {text.length === 0 && !isLoading && (
+          {results.length === 0 && !isLoading && (
             <Empty label="Start Detecting Language." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
-            {text.map((t, tIndex) => (
+            {results.map((result, resultIndex) => (
               <div
-                key={tIndex}
+                key={resultIndex}
                 className={cn(
                   "ml-5 p-2 w-fill flex flex-col items-center gap-x-8 rounded-lg",
                   "dark:bg-zinc-900 border border-black/10"
                 )}
               >
-                <div
-                  key={tIndex} // Use tIndex or another unique identifier as the key
-                  className={cn(
-                    "md:ml-5 p-2 w-full flex items-start justify-center gap-x-8 rounded-lg",
-                    "dark:bg-zinc-900 border border-black/10"
-                  )}
-                >
-                  <p className="text-base">{t.text}</p>
-                </div>
+                {result.results.map((item, itemIndex) => (
+                  <div
+                    key={itemIndex}
+                    className={cn(
+                      "md:ml-5 p-2 w-full flex items-start justify-center gap-x-8 rounded-lg",
+                      "dark:bg-zinc-900 border border-black/10"
+                    )}
+                  >
+                    <p className="text-base">
+                      Index: {item.index}, Relevance Score:{" "}
+                      {item.relevance_score}
+                    </p>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
