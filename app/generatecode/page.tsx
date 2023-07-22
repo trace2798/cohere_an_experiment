@@ -83,7 +83,7 @@ const GeneratePage = () => {
   };
 
   return (
-    <div className="w-full p-5 rounded-lg md:p-10">
+    <div className="w-full p-5 overflow-hidden rounded-lg md:p-10">
       <div className="w-full">
         <HeadingApi
           title="Generate Code"
@@ -170,10 +170,10 @@ const GeneratePage = () => {
             </form>
           </Form>
         </div>
-        <div className="w-1/2 mt-4 space-y-4">
+        <div className="w-1/2 space-y-4">
           {isLoading && (
-            <div className="flex items-center justify-center w-full p-8 ml-10 rounded-lg bg-muted">
-              <Loader description="Cohere is generating." />
+            <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
+              <Loader description="Cohere is tokenizing your text." />
             </div>
           )}
           {messages.length === 0 && !isLoading && (
@@ -184,7 +184,7 @@ const GeneratePage = () => {
               <div
                 key={message.prompt}
                 className={cn(
-                  "ml-10 w-full flex items-center text-left gap-x-8 rounded-lg overflow-auto",
+                  "md:ml-5 p-3 w-fill flex items-center text-left gap-x-8 rounded-lg overflow-auto",
                   "dark:bg-zinc-900 border border-black/10",
                   message.generations.length > 1 ? "flex-col" : "flex-row"
                 )}

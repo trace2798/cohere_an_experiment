@@ -114,7 +114,7 @@ const SummarizePage = () => {
         />
       </div>
 
-      <div className="flex flex-col w-full md:flex-row lg:px-8">
+      <div className="flex flex-col w-full overflow-hidden md:flex-row lg:px-8">
         <div className="w-full">
           <Form {...form}>
             <form
@@ -184,10 +184,10 @@ const SummarizePage = () => {
             </form>
           </Form>
         </div>
-        <div className="w-5/6 mt-4 space-y-4 md:w-1/2">
-          {isLoading && (
-            <div className="flex items-center justify-center w-full p-8 ml-10 rounded-lg bg-muted">
-              <Loader description="Cohere is summarizing your input" />
+        <div className="w-5/6 space-y-4 md:w-1/2">
+        {isLoading && (
+            <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
+              <Loader description="Cohere is tokenizing your text." />
             </div>
           )}
           {summaries.length === 0 && !isLoading && (
@@ -198,7 +198,7 @@ const SummarizePage = () => {
               <div
                 key={summary.id}
                 className={cn(
-                  "md:ml-10 p-8 w-full flex items-start gap-x-8 rounded-lg",
+                  "md:ml-5 p-3 w-fill flex items-start gap-x-8 rounded-lg",
                   "dark:bg-zinc-900 border border-black/10"
                 )}
               >

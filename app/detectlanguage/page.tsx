@@ -139,31 +139,31 @@ const DetectLanguagePage = () => {
                 />
               ))}
               <div className="flex flex-col justify-between xl:justify-around md:flex-row">
-              <Button
-                className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
-                type="button"
-                onClick={addInputField}
-                size="icon"
-                variant="ghost"
-              >
-                Add text fields
-              </Button>
+                <Button
+                  className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
+                  type="button"
+                  onClick={addInputField}
+                  size="icon"
+                  variant="ghost"
+                >
+                  Add text fields
+                </Button>
 
-              <Button
-                className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
-                type="submit"
-                disabled={isLoading}
-                size="icon"
-              >
-                Detect Language
-              </Button>
+                <Button
+                  className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
+                  type="submit"
+                  disabled={isLoading}
+                  size="icon"
+                >
+                  Detect Language
+                </Button>
               </div>
             </form>
           </Form>
         </div>
-        <div className="w-1/2 mt-4 space-y-4">
+        <div className="w-1/2 space-y-4">
           {isLoading && (
-            <div className="flex items-center justify-center w-full p-8 ml-10 rounded-lg bg-muted">
+            <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
               <Loader description="Cohere is tokenizing your text." />
             </div>
           )}

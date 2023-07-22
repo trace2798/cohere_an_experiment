@@ -87,7 +87,7 @@ const DetokenizePage = () => {
           link="https://api.cohere.ai/v1/detokenize"
         />
       </div>
-      <div className="flex flex-col w-full md:flex-row lg:px-8">
+      <div className="flex flex-col w-full overflow-hidden md:flex-row lg:px-8">
         <div className="w-full">
           <Form {...form}>
             <form
@@ -168,9 +168,9 @@ const DetokenizePage = () => {
             </form>
           </Form>
         </div>
-        <div className="w-1/2 mt-4 space-y-4">
+        <div className="w-1/2 space-y-4 md:mt-0">
           {isLoading && (
-            <div className="flex items-center justify-center w-full p-8 ml-10 rounded-lg bg-muted">
+            <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
               <Loader description="Cohere is tokenizing your text." />
             </div>
           )}
@@ -182,14 +182,14 @@ const DetokenizePage = () => {
               <div
                 key={tIndex}
                 className={cn(
-                  "ml-10 p-8 w-full flex flex-col items-center gap-x-8 rounded-lg",
+                  "ml-5 p-2 w-fill flex flex-col items-center gap-x-8 rounded-lg",
                   "dark:bg-zinc-900 border border-black/10"
                 )}
               >
                 <div
                   key={tIndex} // Use tIndex or another unique identifier as the key
                   className={cn(
-                    "md:ml-10 p-8 w-full flex items-start justify-center gap-x-8 rounded-lg",
+                    "md:ml-5 p-2 w-full flex items-start justify-center gap-x-8 rounded-lg",
                     "dark:bg-zinc-900 border border-black/10"
                   )}
                 >
