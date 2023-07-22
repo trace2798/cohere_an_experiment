@@ -16,14 +16,16 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Documents from "./components/documents";
-import { hoverModelContent, models } from "./components/model";
+import { hoverModelContent, models } from "./data/model";
 import { SelectModel } from "./components/model-selector";
 // import { SelectReturnDocument } from "./components/return-document-selector";
 import { ReturnDocument } from "./components/return-document-selector";
-import { hoverReturnDocumentContent } from "./components/return_document";
+import { hoverReturnDocumentContent } from "./data/return_document";
+import TopReturn from "./components/top-return";
+import { hoverTopNContent } from "./data/top_n";
 
 type PromptFormValues = {
   query: string;
@@ -63,8 +65,13 @@ const ReRankPage = () => {
       model: "rerank-english-v2.0",
       documents: [],
       return_documents: false,
+      top_n: 1,
     },
   });
+
+  useEffect(() => {
+    form.setValue("top_n", documents.length);
+  }, [documents, form]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -146,7 +153,6 @@ const ReRankPage = () => {
                   </FormItem>
                 )}
               />
-
               <Documents documents={documents} setDocuments={setDocuments} />
               <Heading
                 title="Available option"
@@ -162,6 +168,11 @@ const ReRankPage = () => {
                   returnDocuments={form.watch("return_documents")}
                   setValue={form.setValue}
                   hoverContentProps={hoverReturnDocumentContent}
+                />
+                <TopReturn
+                  hoverContentProps={hoverTopNContent}
+                  setValue={form.setValue}
+                  top_n={form.watch("top_n")}
                 />
               </div>
               <div className="flex flex-col justify-between xl:justify-around md:flex-row">
@@ -206,7 +217,7 @@ const ReRankPage = () => {
                     <div className="flex-col text-left">
                       {item.document && (
                         <p className="text-sm">
-                          <span className="underline text-indigo-400 text-popover-foreground">
+                          <span className="underline text-indigo-600 ">
                             Document:
                           </span>{" "}
                           <span className="text-base">
@@ -216,7 +227,7 @@ const ReRankPage = () => {
                         </p>
                       )}
                       <p className="text-sm">
-                        <span className="underline text-indigo-400 text-popover-foreground">
+                        <span className="underline text-indigo-500 ">
                           Relevance Score:
                         </span>{" "}
                         <span className="text-base">
@@ -224,7 +235,7 @@ const ReRankPage = () => {
                         </span>
                       </p>
                       <p className="text-sm">
-                        <span className="underline text-indigo-400 text-popover-foreground">
+                        <span className="underline text-indigo-400 ">
                           {" "}
                           Index:
                         </span>{" "}

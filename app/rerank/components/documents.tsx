@@ -11,6 +11,7 @@ import { FC, useState } from "react";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+import { PlusCircleIcon } from "lucide-react";
 
 interface DocumentsProps {
   documents: (object | string)[];
@@ -87,7 +88,7 @@ const Documents: FC<DocumentsProps> = ({ documents, setDocuments }) => {
         size="icon"
         variant="ghost"
       >
-        Add Documents
+        Add Documents <PlusCircleIcon className=" ml-5 w-5"/>
       </Button>
     </>
   );
