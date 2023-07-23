@@ -5,8 +5,8 @@ import { SearchSheet } from "./search-sheet";
 
 const Navbar = async () => {
   return (
-    <div className="fixed top-1 md:top-0 inset-x-0 h-fit dark:bg-zinc-800 border-b border-zinc-300 z-[10] py-2">
-      <div className="container flex items-center justify-between h-full gap-2">
+    <div className="fixed top-0 inset-x-0 h-fit dark:bg-zinc-800 border-b border-zinc-300 z-[10] py-2">
+      <div className="container flex items-center justify-between h-full gap-2 pt-2 md:pt-0">
         {/* logo */}
 
         <Link href="/" className="flex items-center gap-2">
