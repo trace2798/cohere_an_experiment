@@ -21,24 +21,27 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { SelectClassifyModel } from "./components/model-selector";
 import {
+  hoverClassifyExamplesContent,
   hoverClassifyModelContent,
   hoverClassifyTruncateContent,
   models,
   truncate,
 } from "./data/data";
 import { SelectTruncate } from "./components/truncate-selector";
+import { ExampleField } from "./components/example-field";
 
 type PromptFormValues = {
   texts: string[];
   model: string;
   truncate: string;
+  examples: Array<{ text: string; label: string }>;
 };
 
 type ReRankDocument = {
   text: string;
 };
 
-type ReRankResponse = {
+type ClassifyResponse = {
   id: string;
   results: Array<{
     document: ReRankDocument;
@@ -54,8 +57,11 @@ type ReRankResponse = {
 
 const ClassifyPage = () => {
   const { toast } = useToast();
-  const [results, setResults] = useState<ReRankResponse[]>([]);
-  const [texts, setTexts] = useState<string[]>([""]);
+  const [results, setResults] = useState<ClassifyResponse[]>([]);
+  const [inputs, setInputs] = useState<string[]>([""]);
+  const [examples, setExamples] = useState<
+    Array<{ text: string; label: string }>
+  >([]);
 
   const form = useForm<PromptFormValues>({
     // resolver: zodResolver(textSchema),
@@ -63,6 +69,7 @@ const ClassifyPage = () => {
       texts: [],
       model: "embed-english-v2.0",
       truncate: "END",
+      examples: [],
     },
   });
 
@@ -82,7 +89,7 @@ const ClassifyPage = () => {
         variant: "default",
       });
       form.reset();
-      setTexts([]);
+      setInputs([]);
     } catch (error) {
       console.error(error);
       toast({
@@ -94,7 +101,14 @@ const ClassifyPage = () => {
   };
 
   const addInputField = () => {
-    setTexts((currentTexts) => [...currentTexts, ""]);
+    setInputs((currentTexts) => [...currentTexts, ""]);
+  };
+
+  const addExampleField = () => {
+    setExamples((currentExamples) => [
+      ...currentExamples,
+      { text: "", label: "" },
+    ]);
   };
 
   return (
@@ -134,7 +148,7 @@ const ClassifyPage = () => {
                   />
                 </HoverCardContent>
               </HoverCard>
-              {texts.map((text, index) => (
+              {inputs.map((input, index) => (
                 <FormField
                   key={index}
                   name={`texts[${index}]`}
@@ -161,7 +175,13 @@ const ClassifyPage = () => {
               >
                 Add text fields <PlusCircleIcon className="w-5 ml-5 " />
               </Button>
-              {/* <Documents documents={documents} setDocuments={setDocuments} /> */}
+              <ExampleField
+                examples={examples}
+                isLoading={isLoading}
+                addExampleField={addExampleField}
+                hoverContentProps={hoverClassifyExamplesContent}
+              />
+
               <Heading
                 title="Available option"
                 description="All set to default. Change to experiment."

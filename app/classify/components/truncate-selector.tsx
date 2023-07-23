@@ -26,6 +26,7 @@ type PromptFormValues = {
   texts: string[];
   model: string;
   truncate: string;
+  examples: Array<{ text: string; label: string }>;
 };
 
 interface SelectTruncateProps {

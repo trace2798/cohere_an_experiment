@@ -19,6 +19,14 @@ export const hoverClassifyExamplesContent = {
   note: "Each unique label requires at least 2 examples associated with it.  Custom Models trained on classification examples don't require the examples parameter to be passed in explicitly.",
 };
 
+// <HoverContentComponent
+//                     type="array of objects"
+//                     defaultValue="REQUIRED"
+//                     options={["Minimum: 2 per unique label", "Maximum: 2500"]}
+//                     functionality="An array of examples to provide context to the model."
+//                     note="Each example is a text string and its associated label/class. The values should be structured as {text: '...', label: '...'}"
+//                   />
+
 import { Model } from "@/typing";
 
 export const hoverClassifyModelContent = {
