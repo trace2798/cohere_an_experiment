@@ -23,7 +23,7 @@ import { HoverContentComponent } from "@/components/HoverContentCompoent";
 import { Model } from "@/typing";
 
 type PromptFormValues = {
-  texts: string[];
+  inputs: string[];
   model: string;
   truncate: string;
   examples: Array<{ text: string; label: string }>;

@@ -31,7 +31,7 @@ import { SelectTruncate } from "./components/truncate-selector";
 import { ExampleField } from "./components/example-field";
 
 type PromptFormValues = {
-  texts: string[];
+  inputs: string[];
   model: string;
   truncate: string;
   examples: Array<{ text: string; label: string }>;
@@ -69,7 +69,7 @@ const ClassifyPage = () => {
   const form = useForm<PromptFormValues>({
     // resolver: zodResolver(textSchema),
     defaultValues: {
-      texts: [],
+      inputs: [],
       model: "embed-english-v2.0",
       truncate: "END",
       examples: [],
@@ -133,7 +133,7 @@ const ClassifyPage = () => {
             >
               <HoverCard openDelay={200}>
                 <HoverCardTrigger asChild>
-                  <Label htmlFor="query" className="pl-3 text-left w-fit">
+                  <Label htmlFor="inputs" className="pl-3 text-left w-fit">
                     inputs (required)&nbsp;[type: array of string]
                   </Label>
                 </HoverCardTrigger>
