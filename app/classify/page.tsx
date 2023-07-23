@@ -19,8 +19,14 @@ import axios from "axios";
 import { PlusCircleIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { SelectClassifyModel } from "./model/model-selector";
-import { hoverClassifyModelContent, models } from "./data/data";
+import { SelectClassifyModel } from "./components/model-selector";
+import {
+  hoverClassifyModelContent,
+  hoverClassifyTruncateContent,
+  models,
+  truncate,
+} from "./data/data";
+import { SelectTruncate } from "./components/truncate-selector";
 
 type PromptFormValues = {
   texts: string[];
@@ -161,7 +167,16 @@ const ClassifyPage = () => {
                 description="All set to default. Change to experiment."
               />
               <div className="grid w-full p-2 -mt-10 overflow-hidden xl:gap-2 2xl:grid-cols-2">
-                <SelectClassifyModel models={models} hoverContentProps={hoverClassifyModelContent} setValue={form.setValue}/>
+                <SelectClassifyModel
+                  models={models}
+                  hoverContentProps={hoverClassifyModelContent}
+                  setValue={form.setValue}
+                />
+                <SelectTruncate
+                  truncate={truncate}
+                  setValue={form.setValue}
+                  hoverContentProps={hoverClassifyTruncateContent}
+                />
               </div>
               <div className="flex flex-col justify-between xl:justify-around md:flex-row">
                 <Button

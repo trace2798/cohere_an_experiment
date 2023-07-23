@@ -10,5 +10,5 @@ export interface Generations {
 
 export interface Truncate {
   id: string;
-  truncate: integer;
+  truncate: string;
 }
