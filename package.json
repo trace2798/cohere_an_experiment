@@ -21,7 +21,6 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toast": "^1.1.4",
-    "@types/node": "20.4.2",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
@@ -47,5 +46,10 @@
     "tailwindcss-animate": "^1.0.6",
     "typescript": "5.1.6",
     "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.4",
+    "i": "^0.3.7",
+    "npm": "^9.8.1"
   }
 }

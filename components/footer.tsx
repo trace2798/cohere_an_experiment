@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import * as React from "react";
+import { ModeToggle } from "./mode-toggle";
 
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
@@ -43,6 +44,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             some problem with their official playground so I created this one.
           </div>
         </div>
+        <ModeToggle />
       </div>
     </footer>
   );
