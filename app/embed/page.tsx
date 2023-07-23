@@ -34,16 +34,20 @@ type PromptFormValues = {
   truncate: string;
 };
 
-type DetectLanguageResponse = {
-  results: {
-    language_name: string;
-    language_code: string;
-  }[];
+type EmbedResponse = {
+  id: string;
+  texts: string[];
+  embeddings: number[][];
+  meta: {
+    api_version: {
+      version: string;
+    };
+  };
 };
 
 const EmbedPage = () => {
   const { toast } = useToast();
-  const [messages, setMessages] = useState<DetectLanguageResponse[]>([]);
+  const [messages, setMessages] = useState<EmbedResponse[]>([]);
   const [texts, setTexts] = useState<string[]>([""]);
 
   const form = useForm<PromptFormValues>({
@@ -193,11 +197,11 @@ const EmbedPage = () => {
         <div className="w-1/2 space-y-4">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
-              <Loader description="Cohere is tokenizing your text." />
+              <Loader description="Cohere is embeding your text." />
             </div>
           )}
           {messages.length === 0 && !isLoading && (
-            <Empty label="Start Detecting Language." />
+            <Empty label="Start embeding." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message, messageIndex) => (
@@ -208,17 +212,20 @@ const EmbedPage = () => {
                   "dark:bg-zinc-900 border border-black/10"
                 )}
               >
-                {message.results.map((result, resultIndex) => (
-                  <div key={resultIndex}>
-                    <strong>Detected Language:</strong>{" "}
-                    {result.language_name || "Unknown"}
-                    <br />
-                    <strong>Language Code:</strong>{" "}
-                    {result.language_code || "Unknown"}
-                    <br />
-                    <br />
-                  </div>
-                ))}
+                <div>
+                  <p>ID:</p> {message.id}
+                  <br />
+                  <p>Texts:</p>{" "}
+                  {message.texts.map((text, textIndex) => (
+                    <span key={textIndex}>{text}</span>
+                  ))}
+                  <br />
+                  <p>Embeddings:</p>{" "}
+                  {message.embeddings.map((embedding, embeddingIndex) => (
+                    <span key={embeddingIndex}>{embedding.join(", ")}</span>
+                  ))}
+                  <br />
+                </div>
               </div>
             ))}
           </div>
