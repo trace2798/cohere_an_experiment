@@ -18,12 +18,12 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import * as z from "zod";
 import { SelectLength } from "./component/SelectLength";
 import { SelectExtractiveness } from "./component/selectExtractiveness";
 import { SelectFormat } from "./component/selectFormat";
 import { SelectModel } from "./component/selectModal";
 import { TemperatureSlider } from "./component/temperatureSlider";
-import * as z from "zod";
 
 const promptFormValuesSchema = z.object({
   text: z.string().min(250, "Text must be at least 250 characters long"),
@@ -46,11 +46,6 @@ type PromptFormValues = {
 type CohereApiResponse = {
   id: string;
   summary: string;
-  meta: {
-    api_version: {
-      version: string;
-    };
-  };
 };
 
 const SummarizePage = () => {
@@ -188,7 +183,7 @@ const SummarizePage = () => {
         <div className="w-5/6 space-y-4 md:w-1/2">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
-              <Loader description="Cohere is tokenizing your text." />
+              <Loader description="Cohere is summarizing your input." />
             </div>
           )}
           {summaries.length === 0 && !isLoading && (

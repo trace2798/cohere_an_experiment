@@ -1,6 +1,10 @@
 "use client";
 import { HoverContentComponent } from "@/components/HoverContentCompoent";
 import { Loader } from "@/components/loader";
+import { MaxTokenSliderComponent } from "@/components/options/max-token-slider";
+import { SelectNumberOfGeneration } from "@/components/options/num-selector";
+import { TemperatureSliderComponent } from "@/components/options/temperature-slider";
+import { SelectTruncate } from "@/components/options/truncate-selector";
 import { Button } from "@/components/ui/button";
 import { Empty } from "@/components/ui/empty";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
@@ -18,19 +22,14 @@ import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import * as z from "zod";
 import { SelectModel } from "../../components/options/model-selector";
+import { hoverMaxTokenContent } from "./data/max-tokens";
 import { hoverModelContent, models } from "./data/models";
-import { SelectNumberOfGeneration } from "@/components/options/num-selector";
 import {
   hoverNumGenerationContent,
   num_generations,
 } from "./data/num_generations";
-import { TemperatureSliderComponent } from "@/components/options/temperature-slider";
 import { hoverTemperatureContent } from "./data/temperature";
-import { MaxTokenSliderComponent } from "@/components/options/max-token-slider";
-import { hoverMaxTokenContent } from "./data/max-tokens";
-import { SelectTruncate } from "@/components/options/truncate-selector";
 import { hoverTruncateContent, truncate } from "./data/truncate";
 
 type PromptFormValues = {
@@ -179,7 +178,7 @@ const GeneratePage = () => {
         <div className="w-5/6 space-y-4 md:w-1/2">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
-              <Loader description="Cohere is tokenizing your text." />
+              <Loader description="Cohere is generating your text." />
             </div>
           )}
           {messages.length === 0 && !isLoading && (

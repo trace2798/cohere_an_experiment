@@ -38,11 +38,6 @@ type EmbedResponse = {
   id: string;
   texts: string[];
   embeddings: number[][];
-  meta: {
-    api_version: {
-      version: string;
-    };
-  };
 };
 
 const EmbedPage = () => {
@@ -63,11 +58,11 @@ const EmbedPage = () => {
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      const response = await axios.post("/api/detect-language", values); // Call the server-side API route
+      const response = await axios.post("/api/embed", values);
       setMessages((current) => [...current, response.data]);
       toast({
         title: "Success",
-        description: "Your input has been detected.",
+        description: "Your input has been embedded.",
         variant: "default",
       });
       form.reset();
@@ -148,7 +143,7 @@ const EmbedPage = () => {
                         <Input
                           className="pl-3 border border-primary-foreground focus-visible:ring-0 focus-visible:ring-transparent "
                           disabled={isLoading}
-                          placeholder="Enter text to detect language"
+                          placeholder="Enter text to embed"
                           {...field}
                         />
                       </FormControl>

@@ -170,11 +170,11 @@ const DetokenizePage = () => {
         <div className="w-1/2 space-y-4 md:mt-0">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
-              <Loader description="Cohere is tokenizing your text." />
+              <Loader description="Cohere is de-tokenizing your text." />
             </div>
           )}
           {text.length === 0 && !isLoading && (
-            <Empty label="Start Detecting Language." />
+            <Empty label="Start De-Tokenizing." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {text.map((t, tIndex) => (

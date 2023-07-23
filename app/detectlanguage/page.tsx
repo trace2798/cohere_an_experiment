@@ -165,7 +165,7 @@ const DetectLanguagePage = () => {
         <div className="w-1/2 space-y-4">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
-              <Loader description="Cohere is tokenizing your text." />
+              <Loader description="Cohere is detecting your input." />
             </div>
           )}
           {messages.length === 0 && !isLoading && (

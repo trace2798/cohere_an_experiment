@@ -40,17 +40,11 @@ type ReRankDocument = {
 };
 
 type ReRankResponse = {
-  id: string;
   results: Array<{
     document: ReRankDocument;
     index: number;
     relevance_score: number;
   }>;
-  meta: {
-    api_version: {
-      version: string;
-    };
-  };
 };
 
 const ReRankPage = () => {
@@ -191,11 +185,11 @@ const ReRankPage = () => {
         <div className="w-1/2 space-y-4 md:mt-0">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
-              <Loader description="Cohere is tokenizing your text." />
+              <Loader description="Cohere is Re-Ranking your query." />
             </div>
           )}
           {results.length === 0 && !isLoading && (
-            <Empty label="Start Detecting Language." />
+            <Empty label="Start ReRanking." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {results.map((result, resultIndex) => (
@@ -217,7 +211,7 @@ const ReRankPage = () => {
                     <div className="flex-col text-left">
                       {item.document && (
                         <p className="text-sm">
-                          <span className="underline text-indigo-600 ">
+                          <span className="text-indigo-600 underline ">
                             Document:
                           </span>{" "}
                           <span className="text-base">
@@ -227,7 +221,7 @@ const ReRankPage = () => {
                         </p>
                       )}
                       <p className="text-sm">
-                        <span className="underline text-indigo-500 ">
+                        <span className="text-indigo-500 underline ">
                           Relevance Score:
                         </span>{" "}
                         <span className="text-base">
@@ -235,7 +229,7 @@ const ReRankPage = () => {
                         </span>
                       </p>
                       <p className="text-sm">
-                        <span className="underline text-indigo-400 ">
+                        <span className="text-indigo-400 underline ">
                           {" "}
                           Index:
                         </span>{" "}

@@ -7,9 +7,9 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Heading } from "@/components/ui/heading";
 import { HeadingApi } from "@/components/ui/heading-api";
 import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,11 +23,11 @@ import { ExampleField } from "./components/example-field";
 import { SelectClassifyModel } from "./components/model-selector";
 import { SelectTruncate } from "./components/truncate-selector";
 import {
-    hoverClassifyExamplesContent,
-    hoverClassifyModelContent,
-    hoverClassifyTruncateContent,
-    models,
-    truncate,
+  hoverClassifyExamplesContent,
+  hoverClassifyModelContent,
+  hoverClassifyTruncateContent,
+  models,
+  truncate,
 } from "./data/data";
 
 type PromptFormValues = {
@@ -38,7 +38,6 @@ type PromptFormValues = {
 };
 
 type ClassifyResponse = {
-  id: string;
   classifications: Array<{
     id: string;
     input: string;
@@ -50,11 +49,6 @@ type ClassifyResponse = {
       };
     };
   }>;
-  meta: {
-    api_version: {
-      version: string;
-    };
-  };
 };
 
 const ClassifyPage = () => {
@@ -222,11 +216,11 @@ const ClassifyPage = () => {
         <div className="w-1/2 space-y-4 md:mt-0">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
-              <Loader description="Cohere is tokenizing your text." />
+              <Loader description="Cohere is Classifying your inputs." />
             </div>
           )}
           {results.length === 0 && !isLoading && (
-            <Empty label="Start Detecting Language." />
+            <Empty label="Start Classifying." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {results.map((result, resultIndex) => (
