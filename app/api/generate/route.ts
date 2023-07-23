@@ -28,6 +28,7 @@ export async function POST(req: Request) {
     };
     console.log(options, "GENERATE");
     const response = await axios.request(options);
+    console.log(response, "RESPONSE GENERATE")
     const responseData = response.data;
     return NextResponse.json(responseData);
   } catch (error) {

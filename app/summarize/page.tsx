@@ -111,6 +111,7 @@ const SummarizePage = () => {
           description="This endpoint generates a summary in English for a given text."
           method="POST"
           link="https://api.cohere.ai/v1/summarize"
+          limit="For Trail keys: 5000 summarization units per month."
         />
       </div>
 
@@ -185,7 +186,7 @@ const SummarizePage = () => {
           </Form>
         </div>
         <div className="w-5/6 space-y-4 md:w-1/2">
-        {isLoading && (
+          {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
               <Loader description="Cohere is tokenizing your text." />
             </div>

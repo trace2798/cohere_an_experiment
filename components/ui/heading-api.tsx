@@ -3,6 +3,7 @@ interface HeadingApiProps {
   description: string;
   method?: string;
   link?: string;
+  limit?: string;
 }
 
 export const HeadingApi = ({
@@ -10,6 +11,7 @@ export const HeadingApi = ({
   description,
   method,
   link,
+  limit,
 }: HeadingApiProps) => {
   return (
     <>
@@ -24,6 +26,7 @@ export const HeadingApi = ({
             </span>
             &nbsp;{link}
           </p>
+          <p className="text-sm text-muted-foreground">{limit}</p>
         </div>
       </div>
     </>

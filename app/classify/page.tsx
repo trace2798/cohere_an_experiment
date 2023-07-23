@@ -7,9 +7,9 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Heading } from "@/components/ui/heading";
 import { HeadingApi } from "@/components/ui/heading-api";
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,28 +17,24 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { PlusCircleIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { SelectClassifyModel } from "./components/model-selector";
-import {
-  hoverClassifyExamplesContent,
-  hoverClassifyModelContent,
-  hoverClassifyTruncateContent,
-  models,
-  truncate,
-} from "./data/data";
-import { SelectTruncate } from "./components/truncate-selector";
 import { ExampleField } from "./components/example-field";
+import { SelectClassifyModel } from "./components/model-selector";
+import { SelectTruncate } from "./components/truncate-selector";
+import {
+    hoverClassifyExamplesContent,
+    hoverClassifyModelContent,
+    hoverClassifyTruncateContent,
+    models,
+    truncate,
+} from "./data/data";
 
 type PromptFormValues = {
   inputs: string[];
   model: string;
   truncate: string;
   examples: Array<{ text: string; label: string }>;
-};
-
-type ReRankDocument = {
-  text: string;
 };
 
 type ClassifyResponse = {
@@ -94,7 +90,7 @@ const ClassifyPage = () => {
       setResults((current) => [...current, response.data]);
       toast({
         title: "Success",
-        description: "Your input has been ReRanked.",
+        description: "Your input has been Classified.",
         variant: "default",
       });
       form.reset();
@@ -130,6 +126,7 @@ const ClassifyPage = () => {
           description="This endpoint makes a prediction about which label fits the specified text inputs best. To make a prediction, Classify uses the provided examples of text + label pairs as a reference."
           method="POST"
           link="https://api.cohere.ai/v1/classify"
+          limit="For Trail keys: 100 calls / minute."
         />
       </div>
       <div className="flex flex-col w-full overflow-hidden md:flex-row lg:px-8">

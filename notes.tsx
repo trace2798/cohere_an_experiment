@@ -5,3 +5,5 @@
 
 //Tokenize page
 // no information on model
+
+// Docs does not clearly mention about limit on ReRank API response says 'x-trial-endpoint-call-limit': 10

@@ -90,6 +90,7 @@ const GeneratePage = () => {
           description="This endpoint generates realistic text conditioned on a given input."
           method="POST"
           link="https://api.cohere.ai/v1/generate"
+          limit="For Trail keys: 5000 generation units per month."
         />
       </div>
       <div className="flex flex-col w-full overflow-hidden md:flex-row lg:px-8">

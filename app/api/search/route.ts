@@ -28,10 +28,11 @@ export async function POST(req: Request) {
     };
     console.log(options, "SEARCH");
     const response = await axios.request(options);
+    console.log(response, "SEARCH BAR")
     const responseData = response.data;
     return NextResponse.json(responseData);
   } catch (error) {
-    console.log("[GENERATE_ERROR]", error);
+    console.log("[ReRank_SEARCH_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

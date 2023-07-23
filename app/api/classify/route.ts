@@ -27,6 +27,7 @@ export async function POST(req: Request) {
     };
     console.log(options, "CLASSIFY");
     const response = await axios.request(options);
+    console.log(response, "RESPONSE CLASSIFY")
     const responseData = response.data;
     return NextResponse.json(responseData);
   } catch (error) {
@@ -42,3 +43,4 @@ export async function POST(req: Request) {
 //     message: 'invalid request: each unique label must have at least 2 examples. Not enough examples for: Spam'
 //   }
 // }
+
