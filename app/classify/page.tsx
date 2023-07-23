@@ -61,7 +61,10 @@ const ClassifyPage = () => {
   const [inputs, setInputs] = useState<string[]>([""]);
   const [examples, setExamples] = useState<
     Array<{ text: string; label: string }>
-  >([]);
+  >([
+    { text: "", label: "" },
+    { text: "", label: "" },
+  ]);
 
   const form = useForm<PromptFormValues>({
     // resolver: zodResolver(textSchema),

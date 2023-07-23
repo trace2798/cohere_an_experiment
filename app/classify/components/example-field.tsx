@@ -32,7 +32,7 @@ export const ExampleField: React.FC<ExampleFieldProps> = ({
 }) => {
   return (
     <>
-      <div className="px-2 pt-3 border rounded-md md:px-5 border-slate-600/40">
+      <div className="px-2 py-3 border rounded-md md:px-5 border-slate-600/40">
         <HoverCard openDelay={200}>
           <HoverCardTrigger asChild>
             <Label htmlFor="examples" className="pl-3 text-left w-fit">
