@@ -59,7 +59,7 @@ export function Explore({}: ExploreProps) {
         {cardContentData.map((option) => (
           <>
             <a href={option.title.replace(/\s+/g, "").toLowerCase()}>
-              <DropdownMenuItem key={option.title}>
+              <DropdownMenuItem key={option.title} className="cursor-pointer">
                 {option.title}
               </DropdownMenuItem>
             </a>

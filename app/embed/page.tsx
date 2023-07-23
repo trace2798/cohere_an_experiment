@@ -21,16 +21,18 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 type PromptFormValues = {
   texts: string[];
+  model: string;
+  truncate: string;
 };
 
 type DetectLanguageResponse = {
   results: {
-    language_name: string; 
-    language_code: string; 
+    language_name: string;
+    language_code: string;
   }[];
 };
 
-const DetectLanguagePage = () => {
+const EmbedPage = () => {
   const { toast } = useToast();
   const [messages, setMessages] = useState<DetectLanguageResponse[]>([]);
   const [texts, setTexts] = useState<string[]>([""]);
@@ -39,6 +41,8 @@ const DetectLanguagePage = () => {
     // resolver: zodResolver(textSchema),
     defaultValues: {
       texts: [],
+      model:"embed-english-v2.0",
+      truncate: "END"
     },
   });
 
@@ -72,10 +76,10 @@ const DetectLanguagePage = () => {
     <div className="w-full p-5 rounded-lg md:p-10">
       <div className="w-full">
         <HeadingApi
-          title="Detect Language"
-          description="This endpoint identifies which language each of the provided texts is written in."
+          title="Embed"
+          description="This endpoint returns text embeddings. An embedding is a list of floating point numbers that captures semantic information about the text that it represents."
           method="POST"
-          link="https://api.cohere.ai/v1/detect-language"
+          link="https://api.cohere.ai/v1/embed"
         />
       </div>
       <div className="flex flex-col w-full md:flex-row lg:px-8">
@@ -156,7 +160,7 @@ const DetectLanguagePage = () => {
                   disabled={isLoading}
                   size="icon"
                 >
-                  Detect Language
+                  Embed
                 </Button>
               </div>
             </form>
@@ -200,4 +204,4 @@ const DetectLanguagePage = () => {
   );
 };
 
-export default DetectLanguagePage;
+export default EmbedPage;
