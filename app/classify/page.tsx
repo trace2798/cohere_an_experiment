@@ -43,10 +43,16 @@ type ReRankDocument = {
 
 type ClassifyResponse = {
   id: string;
-  results: Array<{
-    document: ReRankDocument;
-    index: number;
-    relevance_score: number;
+  classifications: Array<{
+    id: string;
+    input: string;
+    prediction: string;
+    confidence: number;
+    labels: {
+      [label: string]: {
+        confidence: number;
+      };
+    };
   }>;
   meta: {
     api_version: {
@@ -93,6 +99,7 @@ const ClassifyPage = () => {
       });
       form.reset();
       setInputs([]);
+      setExamples([]);
     } catch (error) {
       console.error(error);
       toast({
@@ -110,6 +117,7 @@ const ClassifyPage = () => {
   const addExampleField = () => {
     setExamples((currentExamples) => [
       ...currentExamples,
+      { text: "", label: "" },
       { text: "", label: "" },
     ]);
   };
@@ -154,7 +162,7 @@ const ClassifyPage = () => {
               {inputs.map((input, index) => (
                 <FormField
                   key={index}
-                  name={`texts[${index}]`}
+                  name={`inputs[${index}]`}
                   render={({ field }) => (
                     <FormItem className="col-span-12 lg:col-span-10">
                       <FormControl className="p-0 m-0">
@@ -232,44 +240,45 @@ const ClassifyPage = () => {
                   "dark:bg-zinc-900 border border-black/10"
                 )}
               >
-                {result.results.map((item, itemIndex) => (
-                  <div
-                    key={itemIndex}
-                    className={cn(
-                      "md:ml-5 p-2 w-full flex items-start justify-center gap-x-8 rounded-lg",
-                      "dark:bg-zinc-900 border border-black/10 my-2"
-                    )}
-                  >
-                    <div className="flex-col text-left">
-                      {item.document && (
+                {result.classifications.map(
+                  (classification, classificationIndex) => (
+                    <div
+                      key={classificationIndex}
+                      className={cn(
+                        "md:ml-5 p-2 w-full flex items-start justify-center gap-x-8 rounded-lg",
+                        "dark:bg-zinc-900 border border-black/10 my-2"
+                      )}
+                    >
+                      <div className="flex-col text-left">
                         <p className="text-sm">
                           <span className="text-indigo-600 underline ">
-                            Document:
+                            Input:
                           </span>{" "}
                           <span className="text-base">
                             {" "}
-                            {item.document.text}
+                            {classification.input}
                           </span>
                         </p>
-                      )}
-                      <p className="text-sm">
-                        <span className="text-indigo-500 underline ">
-                          Relevance Score:
-                        </span>{" "}
-                        <span className="text-base">
-                          {item.relevance_score}
-                        </span>
-                      </p>
-                      <p className="text-sm">
-                        <span className="text-indigo-400 underline ">
-                          {" "}
-                          Index:
-                        </span>{" "}
-                        <span className="text-base">{item.index}</span>
-                      </p>
+                        <p className="text-sm">
+                          <span className="text-indigo-500 underline ">
+                            Prediction:
+                          </span>{" "}
+                          <span className="text-base">
+                            {classification.prediction}
+                          </span>
+                        </p>
+                        <p className="text-sm">
+                          <span className="text-indigo-400 underline ">
+                            Confidence:
+                          </span>{" "}
+                          <span className="text-base">
+                            {classification.confidence}
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             ))}
           </div>
