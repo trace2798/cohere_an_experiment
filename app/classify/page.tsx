@@ -19,9 +19,13 @@ import axios from "axios";
 import { PlusCircleIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { SelectClassifyModel } from "./model/model-selector";
+import { hoverClassifyModelContent, models } from "./data/data";
 
 type PromptFormValues = {
   texts: string[];
+  model: string;
+  truncate: string;
 };
 
 type ReRankDocument = {
@@ -51,6 +55,8 @@ const ClassifyPage = () => {
     // resolver: zodResolver(textSchema),
     defaultValues: {
       texts: [],
+      model: "embed-english-v2.0",
+      truncate: "END",
     },
   });
 
@@ -154,7 +160,9 @@ const ClassifyPage = () => {
                 title="Available option"
                 description="All set to default. Change to experiment."
               />
-              <div className="grid w-full p-2 -mt-10 overflow-hidden xl:gap-2 2xl:grid-cols-2"></div>
+              <div className="grid w-full p-2 -mt-10 overflow-hidden xl:gap-2 2xl:grid-cols-2">
+                <SelectClassifyModel models={models} hoverContentProps={hoverClassifyModelContent} setValue={form.setValue}/>
+              </div>
               <div className="flex flex-col justify-between xl:justify-around md:flex-row">
                 <Button
                   className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
