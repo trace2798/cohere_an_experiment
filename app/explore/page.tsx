@@ -30,7 +30,7 @@ const cardContentData = [
     title: "Classify",
     description:
       "This endpoint makes a prediction about which label fits the specified text inputs best.",
-    disable: true,
+    disable: false,
   },
   {
     title: "Tokenize",

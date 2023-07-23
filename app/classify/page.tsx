@@ -4,6 +4,7 @@ import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import { Empty } from "@/components/ui/empty";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Heading } from "@/components/ui/heading";
 import { HeadingApi } from "@/components/ui/heading-api";
 import {
   HoverCard,
@@ -16,23 +17,34 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { PlusCircleIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type PromptFormValues = {
   texts: string[];
 };
 
-type DetectLanguageResponse = {
-  results: {
-    language_name: string; // Name of the detected language
-    language_code: string; // Code representing the detected language
-  }[];
+type ReRankDocument = {
+  text: string;
 };
 
-const DetectLanguagePage = () => {
+type ReRankResponse = {
+  id: string;
+  results: Array<{
+    document: ReRankDocument;
+    index: number;
+    relevance_score: number;
+  }>;
+  meta: {
+    api_version: {
+      version: string;
+    };
+  };
+};
+
+const ClassifyPage = () => {
   const { toast } = useToast();
-  const [messages, setMessages] = useState<DetectLanguageResponse[]>([]);
+  const [results, setResults] = useState<ReRankResponse[]>([]);
   const [texts, setTexts] = useState<string[]>([""]);
 
   const form = useForm<PromptFormValues>({
@@ -46,11 +58,15 @@ const DetectLanguagePage = () => {
 
   const onSubmit: SubmitHandler<PromptFormValues> = async (values) => {
     try {
-      const response = await axios.post("/api/detect-language", values); // Call the server-side API route
-      setMessages((current) => [...current, response.data]);
+      console.log(values, "TOKEN ARRAY");
+      const response = await axios.post("/api/classify", {
+        values, // Use the converted tokens array
+      });
+
+      setResults((current) => [...current, response.data]);
       toast({
         title: "Success",
-        description: "Your input has been detected.",
+        description: "Your input has been ReRanked.",
         variant: "default",
       });
       form.reset();
@@ -68,17 +84,18 @@ const DetectLanguagePage = () => {
   const addInputField = () => {
     setTexts((currentTexts) => [...currentTexts, ""]);
   };
+
   return (
     <div className="w-full p-5 rounded-lg md:p-10">
       <div className="w-full">
         <HeadingApi
-          title="Detect Language"
-          description="This endpoint identifies which language each of the provided texts is written in."
+          title="Classify"
+          description="This endpoint makes a prediction about which label fits the specified text inputs best. To make a prediction, Classify uses the provided examples of text + label pairs as a reference."
           method="POST"
-          link="https://api.cohere.ai/v1/detect-language"
+          link="https://api.cohere.ai/v1/classify"
         />
       </div>
-      <div className="flex flex-col w-full md:flex-row lg:px-8">
+      <div className="flex flex-col w-full overflow-hidden md:flex-row lg:px-8">
         <div className="w-full">
           <Form {...form}>
             <form
@@ -87,8 +104,8 @@ const DetectLanguagePage = () => {
             >
               <HoverCard openDelay={200}>
                 <HoverCardTrigger asChild>
-                  <Label htmlFor="text" className="pl-3 text-left w-fit">
-                    texts (required)
+                  <Label htmlFor="query" className="pl-3 text-left w-fit">
+                    inputs (required)&nbsp;[type: array of string]
                   </Label>
                 </HoverCardTrigger>
                 <HoverCardContent
@@ -97,30 +114,14 @@ const DetectLanguagePage = () => {
                   side="left"
                 >
                   <HoverContentComponent
-                    type="texts array of strings"
+                    type="array of strings"
                     defaultValue="REQUIRED"
-                    options={["N/A"]}
-                    functionality="List of strings to run the detection on."
+                    options={["Minimum: 1", "Maximum: 96"]}
+                    functionality="Represents a list of queries to be classified,"
                     note="N/A"
                   />
                 </HoverCardContent>
               </HoverCard>
-
-              {/* <FormField
-                name="text"
-                render={({ field }) => (
-                  <FormItem className="col-span-12 lg:col-span-10">
-                    <FormControl className="p-0 m-0">
-                      <Input
-                        className="pl-3 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent "
-                        disabled={isLoading}
-                        placeholder="Enter a text to tokenize"
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              /> */}
               {texts.map((text, index) => (
                 <FormField
                   key={index}
@@ -131,7 +132,7 @@ const DetectLanguagePage = () => {
                         <Input
                           className="pl-3 border border-primary-foreground focus-visible:ring-0 focus-visible:ring-transparent "
                           disabled={isLoading}
-                          placeholder="Enter text to detect language"
+                          placeholder="Enter text to classify"
                           {...field}
                         />
                       </FormControl>
@@ -139,56 +140,88 @@ const DetectLanguagePage = () => {
                   )}
                 />
               ))}
+              <Button
+                className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
+                type="button"
+                onClick={addInputField}
+                size="icon"
+                variant="ghost"
+              >
+                Add text fields <PlusCircleIcon className="w-5 ml-5 " />
+              </Button>
+              {/* <Documents documents={documents} setDocuments={setDocuments} /> */}
+              <Heading
+                title="Available option"
+                description="All set to default. Change to experiment."
+              />
+              <div className="grid w-full p-2 -mt-10 overflow-hidden xl:gap-2 2xl:grid-cols-2"></div>
               <div className="flex flex-col justify-between xl:justify-around md:flex-row">
-                <Button
-                  className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
-                  type="button"
-                  onClick={addInputField}
-                  size="icon"
-                  variant="ghost"
-                >
-                  Add text fields <PlusCircleIcon className="w-5 ml-5 " />
-                </Button>
-
                 <Button
                   className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
                   type="submit"
                   disabled={isLoading}
                   size="icon"
                 >
-                  Detect Language
+                  Classify
                 </Button>
               </div>
             </form>
           </Form>
         </div>
-        <div className="w-1/2 space-y-4">
+        <div className="w-1/2 space-y-4 md:mt-0">
           {isLoading && (
             <div className="flex items-center justify-center w-full p-3 ml-5 rounded-lg w-fill bg-muted">
               <Loader description="Cohere is tokenizing your text." />
             </div>
           )}
-          {messages.length === 0 && !isLoading && (
+          {results.length === 0 && !isLoading && (
             <Empty label="Start Detecting Language." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message, messageIndex) => (
+            {results.map((result, resultIndex) => (
               <div
-                key={messageIndex}
+                key={resultIndex}
                 className={cn(
-                  "ml-10 p-8 w-full flex flex-col items-center gap-x-8 rounded-lg",
+                  "ml-5 p-2 w-fill flex flex-col items-center gap-x-8 rounded-lg",
                   "dark:bg-zinc-900 border border-black/10"
                 )}
               >
-                {message.results.map((result, resultIndex) => (
-                  <div key={resultIndex}>
-                    <strong>Detected Language:</strong>{" "}
-                    {result.language_name || "Unknown"}
-                    <br />
-                    <strong>Language Code:</strong>{" "}
-                    {result.language_code || "Unknown"}
-                    <br />
-                    <br />
+                {result.results.map((item, itemIndex) => (
+                  <div
+                    key={itemIndex}
+                    className={cn(
+                      "md:ml-5 p-2 w-full flex items-start justify-center gap-x-8 rounded-lg",
+                      "dark:bg-zinc-900 border border-black/10 my-2"
+                    )}
+                  >
+                    <div className="flex-col text-left">
+                      {item.document && (
+                        <p className="text-sm">
+                          <span className="text-indigo-600 underline ">
+                            Document:
+                          </span>{" "}
+                          <span className="text-base">
+                            {" "}
+                            {item.document.text}
+                          </span>
+                        </p>
+                      )}
+                      <p className="text-sm">
+                        <span className="text-indigo-500 underline ">
+                          Relevance Score:
+                        </span>{" "}
+                        <span className="text-base">
+                          {item.relevance_score}
+                        </span>
+                      </p>
+                      <p className="text-sm">
+                        <span className="text-indigo-400 underline ">
+                          {" "}
+                          Index:
+                        </span>{" "}
+                        <span className="text-base">{item.index}</span>
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -200,4 +233,4 @@ const DetectLanguagePage = () => {
   );
 };
 
-export default DetectLanguagePage;
+export default ClassifyPage;
