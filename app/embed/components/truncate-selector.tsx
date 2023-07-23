@@ -20,17 +20,17 @@ import { useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 
 import { HoverContentComponent } from "@/components/HoverContentCompoent";
-import { Model } from "@/typing";
+import { Truncate } from "@/typing";
 
 type PromptFormValues = {
-    texts: string[];
-    model: string;
-    truncate: string;
-  };
+  texts: string[];
+  model: string;
+  truncate: string;
+};
 
-interface SelectEmbedProps {
+interface SelectTruncateProps {
   setValue: UseFormSetValue<PromptFormValues>;
-  models: Model[]; // Add this prop to receive the selected model
+  truncate: Truncate[]; // Add this prop to receive the selected model
   hoverContentProps: {
     type: string;
     defaultValue: string;
@@ -40,17 +40,17 @@ interface SelectEmbedProps {
   };
 }
 
-export function SelectEmbedModel({
-  models,
+export function SelectTruncate({
+  truncate,
   setValue,
   hoverContentProps,
-}: SelectEmbedProps) {
+}: SelectTruncateProps) {
   const handleFormatChange = (value: string) => {
-    setSelectedModel(value);
-    setValue("model", value); // Update the format property in the form data
+    setSelectedTruncate(value);
+    setValue("truncate", value); // Update the format property in the form data
   };
 
-  const [selectedModel, setSelectedModel] = useState("embed-english-v2.0");
+  const [selectedTruncate, setSelectedTruncate] = useState("END");
 
   return (
     <>
@@ -58,7 +58,7 @@ export function SelectEmbedModel({
         <div className="flex items-center justify-center w-full">
           <HoverCard openDelay={200}>
             <HoverCardTrigger asChild>
-              <Label htmlFor="model">Model</Label>
+              <Label htmlFor="truncate">truncate</Label>
             </HoverCardTrigger>
             <HoverCardContent
               align="start"
@@ -70,16 +70,16 @@ export function SelectEmbedModel({
           </HoverCard>
         </div>
         <div>
-          <Select value={selectedModel} onValueChange={handleFormatChange}>
+          <Select value={selectedTruncate} onValueChange={handleFormatChange}>
             <SelectTrigger className="w-fit md:w-[180px]">
-              <SelectValue>{selectedModel}</SelectValue>
+              <SelectValue>{selectedTruncate}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Select a Model</SelectLabel>
-                {models.map((model) => (
-                  <SelectItem key={model.id} value={model.name}>
-                    {model.name}
+                {truncate.map((trunc) => (
+                  <SelectItem key={trunc.id} value={trunc.truncate}>
+                    {trunc.truncate}
                   </SelectItem>
                 ))}
               </SelectGroup>

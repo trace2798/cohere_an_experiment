@@ -4,6 +4,7 @@ import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import { Empty } from "@/components/ui/empty";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Heading } from "@/components/ui/heading";
 import { HeadingApi } from "@/components/ui/heading-api";
 import {
   HoverCard,
@@ -18,6 +19,14 @@ import axios from "axios";
 import { PlusCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { SelectTruncate } from "./components/truncate-selector";
+import {
+  hoverEmbedModelContent,
+  hoverEmbedTruncateContent,
+  models,
+  truncate,
+} from "./data/data";
+import { SelectEmbedModel } from "./components/model-selector";
 
 type PromptFormValues = {
   texts: string[];
@@ -41,8 +50,8 @@ const EmbedPage = () => {
     // resolver: zodResolver(textSchema),
     defaultValues: {
       texts: [],
-      model:"embed-english-v2.0",
-      truncate: "END"
+      model: "embed-english-v2.0",
+      truncate: "END",
     },
   });
 
@@ -103,9 +112,9 @@ const EmbedPage = () => {
                   <HoverContentComponent
                     type="texts array of strings"
                     defaultValue="REQUIRED"
-                    options={["N/A"]}
-                    functionality="List of strings to run the detection on."
-                    note="N/A"
+                    options={["Maximum number of texts per call is 96"]}
+                    functionality="An array of strings for the model to embed."
+                    note="It is recommended to reduce the length of each text to be under 512 tokens for optimal quality."
                   />
                 </HoverCardContent>
               </HoverCard>
@@ -143,17 +152,32 @@ const EmbedPage = () => {
                   )}
                 />
               ))}
+              <Button
+                className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
+                type="button"
+                onClick={addInputField}
+                size="icon"
+                variant="ghost"
+              >
+                Add text fields <PlusCircleIcon className="w-5 ml-5 " />
+              </Button>
+              <Heading
+                title="Available option"
+                description="All set to default. Change to experiment."
+              />
+              <div className="grid w-full p-2 -mt-10 overflow-hidden xl:gap-2 2xl:grid-cols-2">
+                <SelectEmbedModel
+                  models={models}
+                  hoverContentProps={hoverEmbedModelContent}
+                  setValue={form.setValue}
+                />
+                <SelectTruncate
+                  truncate={truncate}
+                  setValue={form.setValue}
+                  hoverContentProps={hoverEmbedTruncateContent}
+                />
+              </div>
               <div className="flex flex-col justify-between xl:justify-around md:flex-row">
-                <Button
-                  className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
-                  type="button"
-                  onClick={addInputField}
-                  size="icon"
-                  variant="ghost"
-                >
-                  Add text fields <PlusCircleIcon className="w-5 ml-5 " />
-                </Button>
-
                 <Button
                   className="col-span-12 p-5 mt-5 w-fit lg:col-span-12"
                   type="submit"
