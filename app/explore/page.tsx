@@ -24,7 +24,7 @@ const cardContentData = [
     title: "Embed",
     description:
       "This endpoint returns text embeddings. An embedding is a list of floating point numbers that captures semantic information about the text that it represents.",
-    disable: true,
+    disable: false,
   },
   {
     title: "Classify",

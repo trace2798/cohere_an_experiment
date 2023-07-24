@@ -85,7 +85,7 @@ const GeneratePage = () => {
     <div className="w-full p-5 rounded-lg md:p-10">
       <div className="w-full">
         <HeadingApi
-          title="Generate"
+          title="Generate (Working on adding all the options)"
           description="This endpoint generates realistic text conditioned on a given input."
           method="POST"
           link="https://api.cohere.ai/v1/generate"
