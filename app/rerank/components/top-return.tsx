@@ -61,6 +61,7 @@ const TopReturn = ({ top_n, setValue, hoverContentProps }: TopReturnProps) => {
             name="top_n"
             value={top_n}
             onChange={handleTopNChange}
+            min={1}
           />
         </div>
       </div>
