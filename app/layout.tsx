@@ -11,8 +11,8 @@ import { SiteFooter } from "@/components/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cohere Playground",
-  description: "Cohere Ai Playground",
+  title: "Cohere Playground (Unofficial)",
+  description: "Cohere Ai Playground (Unofficial)",
 };
 
 export default function RootLayout({
