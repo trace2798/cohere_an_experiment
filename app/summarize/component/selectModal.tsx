@@ -36,7 +36,7 @@ export function SelectModel({ setValue }: SelectModelProps) {
     setValue("model", value); // Update the format property in the form data
   };
 
-  const [selectedModel, setSelectedModel] = useState("summarize-xlarge");
+  const [selectedModel, setSelectedModel] = useState("command");
 
   return (
     <>
@@ -70,12 +70,12 @@ export function SelectModel({ setValue }: SelectModelProps) {
               <SelectGroup>
                 <SelectLabel>Summary Model</SelectLabel>
                 {[
-                  "summarize-medium",
-                  "summarize-xlarge",
                   "command",
                   "command-nightly",
                   "command-light",
                   "command-light-nightly",
+                  "summarize-medium",
+                  "summarize-xlarge",
                 ].map((format) => (
                   <SelectItem key={format} value={format}>
                     {format}
