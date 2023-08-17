@@ -56,7 +56,7 @@ export function SelectModel({ setValue }: SelectModelProps) {
                 defaultValue="summarize-xlarge"
                 options={["summarize-xlarge", "summarize-medium"]}
                 functionality="The ID of the model to generate the summary with."
-                note="Smaller models are faster, while larger models will perform better."
+                note="Smaller models are faster, while larger models will perform better. summarize-xl & medium are legacy. command-nightly is experimental."
               />
             </HoverCardContent>
           </HoverCard>
@@ -69,7 +69,14 @@ export function SelectModel({ setValue }: SelectModelProps) {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Summary Model</SelectLabel>
-                {["summarize-medium", "summarize-xlarge"].map((format) => (
+                {[
+                  "summarize-medium",
+                  "summarize-xlarge",
+                  "command",
+                  "command-nightly",
+                  "command-light",
+                  "command-light-nightly",
+                ].map((format) => (
                   <SelectItem key={format} value={format}>
                     {format}
                   </SelectItem>
