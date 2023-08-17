@@ -122,11 +122,12 @@ export function SearchSheet() {
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Search Site</SheetTitle>
-          <SheetDescription>Search made possible with Co.ReRank API</SheetDescription>
+          <SheetDescription>
+            Search made possible with Co.ReRank API
+          </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="flex flex-col items-center gap-4">
-            
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -139,7 +140,7 @@ export function SearchSheet() {
                     <FormItem className="col-span-12 lg:col-span-10">
                       <FormControl className="p-0 m-0">
                         <Input
-                          className="pl-3 w-full border border-primary-foreground focus-visible:ring-0 focus-visible:ring-transparent "
+                          className="w-full pl-3 border border-primary-foreground focus-visible:ring-0 focus-visible:ring-transparent "
                           disabled={isLoading}
                           placeholder="Enter the search query"
                           {...field}
@@ -176,7 +177,7 @@ export function SearchSheet() {
               <div
                 key={resultIndex}
                 className={cn(
-                  "ml-5 p-2 w-fill flex flex-col items-center gap-x-8 rounded-lg",
+                  " p-2 w-fill flex flex-col items-center gap-x-8 rounded-lg",
                   "dark:bg-zinc-900 border border-black/10"
                 )}
               >
@@ -184,7 +185,7 @@ export function SearchSheet() {
                   <div
                     key={itemIndex}
                     className={cn(
-                      "md:ml-5 p-2 w-full flex items-start justify-center gap-x-8 rounded-lg",
+                      " p-2 w-full flex items-start justify-center gap-x-8 rounded-lg",
                       "dark:bg-zinc-900 border border-black/10 my-2"
                     )}
                   >
@@ -192,7 +193,7 @@ export function SearchSheet() {
                       {item.document && (
                         <p className="text-sm">
                           <a href={descriptionToRouteMap[item.document.text]}>
-                            <span className="underline text-indigo-600 "></span>{" "}
+                            <span className="text-indigo-600 underline "></span>{" "}
                             <span className="text-base line-clamp-2">
                               {" "}
                               {item.document.text}
@@ -201,7 +202,7 @@ export function SearchSheet() {
                         </p>
                       )}
                       <p className="text-sm">
-                        <span className="underline text-indigo-500 ">
+                        <span className="text-indigo-500 underline ">
                           Relevance Score:
                         </span>{" "}
                         <span className="text-base">
